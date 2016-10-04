@@ -1,0 +1,9 @@
+/bin
+/node_modules
+/obj
+/Semantic-UI-CSS-master
+/Server/models/mysql.js
+/TM_Layout
+/typings
+/.ntvs_analysis.dat
+/TmApp.njspro
