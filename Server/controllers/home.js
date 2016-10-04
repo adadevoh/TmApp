@@ -5,19 +5,24 @@ exports.dashboard = function(req, res){
     var fixes = new model();
     fixes.tableName = 'fixes';
 
-    fixes.readAll(undefined, function(err, results){
-        if(err){
+    var bugs = new model();
+    bugs.tableName = 'bugs';
+
+    fixes.readAll(undefined, function(fixErr, fixResults){
+        //then do bugs.readAll, and then send results
+        //so the if/else logic for fixes.readAll will be nested inside bugs.readAll
+        if(fixErr){
             console.log('dashboard error')
-            console.log(err);
+            console.log(fixErr);
         }
         else{
-            console.log('home.dashboard results:');
-            console.log(results);
-            console.log('results.length');
-            console.log(results.length);
+            console.log('home.dashboard fixResults:');
+            console.log(fixResults);
+            console.log('fixResults.length');
+            console.log(fixResults.length);
 
-            if(results.length == 0){
-                res.render('index', {title: 'TmApp Dashboard', noFixes: false })//change to fixCount, bugCount
+            if(fixResults.length == 0){
+                res.render('index', {title: 'TmApp Dashboard', fixCount: 0 })
             }
             else{
                 res.render( 'index', { title: 'TmApp Dashboard' });

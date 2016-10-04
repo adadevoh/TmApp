@@ -8,7 +8,7 @@ block content
       a.item(data-tab="Bugs")
         h2 Bugs
     .ui.bottom.attached.tab.segment.active(data-tab="Fixes")
-      if noFixes 
+      if fixCount == 0 
         p Display message here. If there are no fixes, say "sorry no fixes
       else
         p fixes are coming :)
