@@ -1,0 +1,36 @@
+﻿doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/semantic/semantic.css')
+    link(rel='stylesheet', href='/stylesheets/custom.css')
+  body
+    header
+      nav.ui.large.inverted.menu#banner
+        .ui.container
+          .nav_bar
+            .left.menu
+              .ui.dropdown.item Projects
+                i.dropdown.icon
+                .menu#project-list
+                  a.item LTSR CU2 <!--go to project page localt host/projectName -->
+                  .divider
+                  a.item Create Project
+                  .divider
+                  a.item(href="#") View all projects
+        a.right.header.item(href="/")
+          img.logo(src="logo.png")
+          |User Name
+        a.item Tester Item 1
+            
+
+
+    .ui.container
+      block content
+
+    footer
+      .ui.footer.segment#footer
+
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+  script(src='/semantic/semantic.min.js')
+  script(src='/scripts/custom.js')

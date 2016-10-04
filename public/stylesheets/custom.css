@@ -1,0 +1,43 @@
+body {
+  /*padding: 50px;*/
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #deefff; /* Old browsers */
+
+  padding-top: 8em;
+}
+a {
+  color: #00b7ff;
+}
+
+
+.ui.inverted.menu{
+	height: 45px;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1000;
+	
+}
+#banner{
+  padding-right: 3cm;
+}
+
+#project-list{
+  min-width: 260px;
+}
+
+.nav_bar{
+	height: inherit;
+	/*margin-left: 50px;*/
+	/*padding-left: 3cm;  */
+	position: fixed;
+}
+
+#footer {
+	width:100%;
+	height:50px;
+	position:fixed;
+	bottom:0;
+	left:0;
+	background:#efefdc;
+}

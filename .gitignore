@@ -6,4 +6,5 @@
 /TM_Layout
 /typings
 /.ntvs_analysis.dat
-/TmApp.njspro
+/TmApp.njsproj
+/public/semantic

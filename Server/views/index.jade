@@ -1,0 +1,29 @@
+﻿extends layout
+
+block content
+  .ui.segment
+    .ui.top.attached.tabular.menu
+      a.item.active(data-tab="Fixes")
+        h2 Fixes
+      a.item(data-tab="Bugs")
+        h2 Bugs
+    .ui.bottom.attached.tab.segment.active(data-tab="Fixes")
+      if noFixes 
+        p Display message here. If there are no fixes, say "sorry no fixes
+      else
+        p fixes are coming :)
+      .ui.clearing.divider
+      button.ui.primary.basic.button Add Fix
+    .ui.bottom.attached.tab.segment(data-tab="Bugs")
+      p sorry no bugs
+      .ui.clearing.divider
+      button.ui.red.basic.button Add Bug
+  .ui.segment
+    h2 Items
+    .ui.three.column.grid
+      .column
+        h4 To Dos
+      .column
+        h4 Notes
+      .column
+        h4 Reminders
