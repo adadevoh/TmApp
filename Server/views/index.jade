@@ -9,11 +9,14 @@ block content
         h2 Bugs
     .ui.bottom.attached.tab.segment.active(data-tab="Fixes")
       if fixCount == 0 
-        p Display message here. If there are no fixes, say "sorry no fixes
+        p No fixes in your queue
       else
-        p fixes are coming :)
-      .ui.clearing.divider
-      button.ui.primary.basic.button Add Fix
+        //p #{fixCount} Fixes
+        include ./partials/index/fixList
+
+
+      //.ui.clearing.divider
+      //button.ui.primary.basic.button Add Fix
     .ui.bottom.attached.tab.segment(data-tab="Bugs")
       p sorry no bugs
       .ui.clearing.divider

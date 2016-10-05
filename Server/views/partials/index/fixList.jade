@@ -1,0 +1,72 @@
+
+form(method="post" action="/")
+          table.ui.table
+            thead
+              tr
+                th.one.wide Number
+                th.three.wide Title
+                th.two.wide Line Item Verification
+                th.two.wide Regression
+                th.two.wide Stress
+                th.one.wide WHQL
+                th.one.wide ReadMe
+            tbody
+              each fix in fixes
+                tr
+                  td
+                    a(href="#") #{fix.fixNumber}
+                  td #{fix.title}
+                  td
+                    select.ui.fluid.dropdown(name="#{fix.fixNumber}-LIV") 
+                      option(value="#{fix.liv}") #{fix.liv}
+                      unless fix.liv == "Not Started" 
+                        option(value="Not-Started") Not Started
+                      unless fix.liv == "In Progress"
+                        option(value="In-Progress") In Progress
+                      unless fix.liv == "Blocked"
+                        option(value="Blocked") Blocked
+                      unless fix.liv == "Complete"
+                        option(value="Complete") Complete
+                  td
+                    select.ui.fluid.dropdown(name="#{fix.fixNumber}-Regression")
+                      option(value="#{fix.regression}") #{fix.regression}
+                      unless fix.regression == "Not Started"
+                        option(value="Not-Started") Not Started
+                      unless fix.regression == "In Progress"
+                        option(value="In-Progress") In Progress
+                      unless fix.regression == "Blocked"
+                        option(value="Blocked") Blocked
+                      unless fix.regression == "Complete"
+                        option(value="Complete") Complete
+                  td
+                    select.ui.fluid.dropdown(name="#{fix.fixNumber}-Stress")
+                      option(value="#{fix.stress}") #{fix.stress}
+                      unless fix.stress == "Not Started"
+                        option(value="Not-Started") Not Started
+                      unless fix.stress == "In Progress"
+                        option(value="In-Progress") In Progress
+                      unless fix.stress == "Blocked"
+                        option(value="Blocked") Blocked
+                      unless fix.stress == "Complete"
+                        option(value="Complete") Complete
+                  td
+                    .ui.fitted.toggle.checkbox
+                      if fix.whql
+                        input(type="checkbox" name="#{fix.fixNumber}-WHQL" checked )
+                      else
+                         input(type="checkbox" name="#{fix.fixNumber}-WHQL" )
+                      label
+                  td
+                    .ui.fitted.toggle.checkbox
+                      if fix.readMe
+                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" checked)
+                      else
+                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" )
+                      label
+                      //-
+                        updating readMe and whql checkboxes from server
+          .ui.clearing.divider
+          .ui.buttons
+            input.ui.primary.basic.button( type="submit" value="save")
+            .or
+            a.ui.red.basic.button Add Fix

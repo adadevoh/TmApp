@@ -35,6 +35,10 @@ class Base {
         //console.log('end of tableExists')
     }
 
+    /*
+    create(): method to insert a a record into te current table
+    data: {column: value, column2: value2...}
+    */
     create(data, callback){
         //console.log('start of base::create()');
         var query = connection.query("INSERT INTO "+ this.tableName +" SET ?", data, callback);

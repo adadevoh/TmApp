@@ -4,26 +4,11 @@ var User = require('../models/user.js');
 var Fix = require('../models/fix.js');
 var home = require('../controllers/home.js');
 
-//user should ahvea current project
+//user should have current project
 
 /* GET home page. */
-/*router.get( '/', function ( req, res ) {
-    console.log( 'req.session' );
-    console.log( req.session );
-    sess = req.session;
-    req.session.user = 'tester';
-    console.log( 'index.js sess email: ' + req.session.user);
-    //console.log( sess );
-    //sess.id = 'tester';
-    res.render( 'index', { title: 'Express' });
-    /*req.session.destroy( function ( err ) {
-        console.log( 'destroyed session' );
-    });*/
-//});
-
 router.get('/', home.dashboard);
-
-
+router.post('/', home.dashboard)
 
 
 
@@ -35,12 +20,7 @@ var u = new User();
 //u.userTestFunc();
 //console.log('tableName: '+u.tableName);
 
-//u.create({role: 'Admin', userid: 'user2', password: 'password'}, function(err, results){if(err){console.log('create error:'); console.log(err);console.log();}});
-//u.create({role: 'User', userid: 'user3', password: 'password'}, function(err, results){if(err){console.log('create error:'); console.log(err);console.log();}});
-//u.create({role: 'Admin', userid: 'user4', password: 'password'}, function(err, results){if(err){console.log('create error:'); console.log(err);console.log();}});
-//u.create({role: 'User', userid: 'user5', password: 'password'}, function(err, results){if(err){console.log('create error:'); console.log(err);console.log();}});
-//u.create({role: 'Admin', userid: 'user6', password: 'password'}, function(err, results){if(err){console.log('create error:'); console.log(err);console.log();}});
-//u.create({role: 'User', userid: 'user7', password: 'password'}, function(err, results){if(err){console.log('create error:'); console.log(err);console.log();}});
+
 //u.readAll( /*undefined*/'LIMIT 2', function(err, results){
 /*    if(err){
         console.log('readAll ERROR!!!!! : ');
