@@ -10,6 +10,7 @@ class User extends Base {
         this.role;
         this.userid;
         this.password;
+        this.currentProject;
         var self = this;//for maininting self inside callback
 
         /*this.tryTableExists(function(error, results, fields){
