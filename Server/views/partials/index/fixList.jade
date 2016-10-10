@@ -1,5 +1,5 @@
 
-form(method="post" action="/")
+form(method="post" action="/fix/save")
           table.ui.table
             thead
               tr
@@ -52,17 +52,21 @@ form(method="post" action="/")
                   td
                     .ui.fitted.toggle.checkbox
                       if fix.whql
-                        input(type="checkbox" name="#{fix.fixNumber}-WHQL" checked )
+                        input(type="checkbox" name="#{fix.fixNumber}-WHQL" checked  value="on")
                       else
-                         input(type="checkbox" name="#{fix.fixNumber}-WHQL" )
+                         input(type="checkbox" name="#{fix.fixNumber}-WHQL" unchecked value="off")
+                         input(type="hidden" name="#{fix.fixNumber}-WHQL" value="off")
                       label
                   td
                     .ui.fitted.toggle.checkbox
                       if fix.readMe
-                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" checked)
+                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" checked value="on")
                       else
-                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" )
+                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" unchecked value="off")
+                        input(type="hidden" name="#{fix.fixNumber}-ReadMe" value="off")
                       label
+                      //-
+                        input(type="hidden" name="fix" value="#{fix.fixNumber}")
                       //-
                         updating readMe and whql checkboxes from server
           .ui.clearing.divider
