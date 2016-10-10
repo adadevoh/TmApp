@@ -1,0 +1,37 @@
+.ui.small.modal#addFixModal
+  .header Add Fix
+  .content
+    form.ui.form(method="post" action="/")
+      .fields
+        .six.wide.field
+          label Fix Number
+          input#fixNumber(type="text" name="fixNumber" placeholder="Fix Number")
+        .six.wide.field
+          label Title
+          input#fixTitle(type="text" name="fixTitle" placeholder="Title")
+      .fields
+        .six.wide.field
+          label Environment
+          textarea#fixEnvironment(rows="2" name="fixEnvironment")
+        .three.wide.field
+          label WHQL
+          .field
+            .ui.radio.checkbox
+                input(type="radio" name="whql" value="yes")
+                label Yes
+            .ui.radio.checkbox
+                input(type="radio" name="whql" value="no")
+                label No
+        .three.wide.field
+          label Create OnteTest LineItem
+          .ui.fitted.checkbox
+            input(type="checkbox" name="addOneTestLineItem")
+            label
+        .three.wide.field
+          label Select Project
+          select.ui.fluid.floating.dropdown.button(name="project")
+            option(value="") Projects
+            option(value="LTSR-7.6-CU1") LTSR 7.6 CU1
+            option(value="LTSR-7.6-CU2") LTSR 7.6 CU2
+            option(value="LTSR-7.6-CU3") LTSR 7.6 CU3
+      button.ui.blue.submit.button(type="submit") Submit

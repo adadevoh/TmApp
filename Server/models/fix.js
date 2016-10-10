@@ -14,8 +14,8 @@ class Fix extends Base{
         this.read({fixNumber: fixN}, function(err, result){
             if(err){
                 if(err.code == 'ER_NO_SUCH_TABLE'){
-                    console.log('Table does not exist');
-                    var clause = "(fixNumber VARCHAR(50), owner VARCHAR(50) NOT NULL, project VARCHAR(50), sprint VARCHAR(50), title TEXT NOT NULL, environment MEDIUMTEXT, reproSteps MEDIUMTEXT, liv VARCHAR(50), regression VARCHAR(50), stress VARCHAR(50), whql TINYINT(1), readMe TINYINT(1), dev VARCHAR(50), escalation VARCHAR(50), complete TINYINT(1), vda feature TINYTEXT, PRIMARY KEY (fixNumber)  )";
+                    console.log(this.tableName + ' table does not exist');
+                    var clause = "(fixNumber VARCHAR(50), owner VARCHAR(50) NOT NULL, project VARCHAR(50), sprint VARCHAR(50), title TEXT NOT NULL, environment MEDIUMTEXT, reproSteps MEDIUMTEXT, liv VARCHAR(50), regression VARCHAR(50), stress VARCHAR(50), whql TINYINT(1), readMe TINYINT(1), dev VARCHAR(50), escalation VARCHAR(50), complete TINYINT(1), feature TINYTEXT, PRIMARY KEY (fixNumber)  )";
                     self.createTable(clause, function(err, result){
                         if(err){
                             console.log('create table error');

@@ -10,10 +10,12 @@ block content
     .ui.bottom.attached.tab.segment.active(data-tab="Fixes")
       if fixCount == 0 
         p No fixes in your queue
+        .ui.clearing.divider
+        button.ui.blue.basic.button#addFix Add Fix
       else
         //p #{fixCount} Fixes
         include ./partials/index/fixList
-
+      include ./partials/index/addFixModal
 
       //.ui.clearing.divider
       //button.ui.primary.basic.button Add Fix
@@ -26,7 +28,15 @@ block content
     .ui.three.column.grid
       .column
         h4 To Dos
+        unless toDos
+          p Nothing in To Do list
+          //-
+            .ui.vertical.divider
+      
       .column
         h4 Notes
+        //-
+          .ui.vertical.divider
+
       .column
         h4 Reminders
