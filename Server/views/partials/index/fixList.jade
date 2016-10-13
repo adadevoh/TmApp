@@ -22,9 +22,9 @@ table.ui.table
             select.ui.fluid.dropdown(name="LIV" form="#{fix.fixNumber}-saveFix") 
               option(value="#{fix.liv}") #{fix.liv}
               unless fix.liv == "Not Started" 
-                option(value="Not-Started") Not Started
+                option(value="Not Started") Not Started
               unless fix.liv == "In Progress"
-                option(value="In-Progress") In Progress
+                option(value="In Progress") In Progress
               unless fix.liv == "Blocked"
                 option(value="Blocked") Blocked
               unless fix.liv == "Complete"
@@ -33,9 +33,9 @@ table.ui.table
             select.ui.fluid.dropdown(name="Regression" form="#{fix.fixNumber}-saveFix")
               option(value="#{fix.regression}") #{fix.regression}
               unless fix.regression == "Not Started"
-                option(value="Not-Started") Not Started
+                option(value="Not Started") Not Started
               unless fix.regression == "In Progress"
-                option(value="In-Progress") In Progress
+                option(value="In Progress") In Progress
               unless fix.regression == "Blocked"
                 option(value="Blocked") Blocked
               unless fix.regression == "Complete"
@@ -44,21 +44,46 @@ table.ui.table
             select.ui.fluid.dropdown(name="Stress" form="#{fix.fixNumber}-saveFix")
               option(value="#{fix.stress}") #{fix.stress}
               unless fix.stress == "Not Started"
-                option(value="Not-Started") Not Started
+                option(value="Not Started") Not Started
               unless fix.stress == "In Progress"
-                option(value="In-Progress") In Progress
+                option(value="In Progress") In Progress
               unless fix.stress == "Blocked"
                 option(value="Blocked") Blocked
               unless fix.stress == "Complete"
                 option(value="Complete") Complete
-          td
-            .ui.checkbox
-              if fix.whql == 1
-                input(type="checkbox" name="WHQL" checked="checked"  value=0 )
-                |it is one                        
-              if fix.whql == 0
-                input(type="checkbox" name="WHQL" unchecked value=1)
-              label
+          td.ui.form
+            .inline.fields
+              .field
+                .ui.radio.checkbox
+                  if fix.whql == 1
+                    input(type="radio" name="WHQL" checked="checked" value=1)
+                  else
+                    input(type="radio" name="WHQL" value=1)
+                  label Yes
+              .field
+                .ui.radio.checkbox
+                  if fix.whql == 0
+                    input(type="radio" name="WHQL" checked="checked"  value=0)
+                  else
+                    input(type="radio" name="WHQL" value=0)
+                  label No
+          //-
+            td.ui.form
+              .inline.fields
+                .field
+                  .ui.radio.checkbox
+                    if fix.readMe == 1
+                      input(type="radio" name="ReadMe" checked="checked" value=1)
+                    else
+                      input(type="radio" name="ReadMe" value=1)
+                    label true
+                .field
+                  .ui.radio.checkbox
+                    if fix.readMe == 0
+                      input(type="radio" name="ReadMe" checked="checked"  value=0)
+                    else
+                      input(type="radio" name="ReadMe" value=0)
+                    label false
           td
             .ui.checkbox
               if fix.readMe == 1
