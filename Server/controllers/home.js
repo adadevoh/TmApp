@@ -16,10 +16,10 @@ exports.dashboard = function(req, res){
             console.log(fixErr);
         }
         else{
-            console.log('home.dashboard fixResults:');
-            console.log(fixResults);
-            console.log('fixResults.length');
-            console.log(fixResults.length);
+            //console.log('home.dashboard fixResults:');
+            //console.log(fixResults);
+            //console.log('fixResults.length');
+            //console.log(fixResults.length);
             
             if(fixResults.length == 0){
                 res.render('index', {title: 'TmApp Dashboard', fixCount: 0 })
@@ -34,11 +34,11 @@ exports.dashboard = function(req, res){
     
 
     //some session test/debugging code
-    console.log( 'req.session' );
-    console.log( req.session );
-    sess = req.session;
-    req.session.user = 'tester';
-    console.log( 'index.js sess email: ' + req.session.user);
+    //console.log( 'req.session' );
+    //console.log( req.session );
+    //sess = req.session;
+    //req.session.user = 'tester';
+    //console.log( 'index.js sess email: ' + req.session.user);
 
     //console.log( sess );
     //sess.id = 'tester';

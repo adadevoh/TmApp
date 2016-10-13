@@ -1,76 +1,78 @@
 
-form(method="post" action="/fix/save")
-          table.ui.table
-            thead
-              tr
-                th.one.wide Number
-                th.three.wide Title
-                th.two.wide Line Item Verification
-                th.two.wide Regression
-                th.two.wide Stress
-                th.one.wide WHQL
-                th.one.wide ReadMe
-            tbody
-              each fix in fixes
-                tr
-                  td
-                    a(href="#") #{fix.fixNumber}
-                  td #{fix.title}
-                  td
-                    select.ui.fluid.dropdown(name="#{fix.fixNumber}-LIV") 
-                      option(value="#{fix.liv}") #{fix.liv}
-                      unless fix.liv == "Not Started" 
-                        option(value="Not-Started") Not Started
-                      unless fix.liv == "In Progress"
-                        option(value="In-Progress") In Progress
-                      unless fix.liv == "Blocked"
-                        option(value="Blocked") Blocked
-                      unless fix.liv == "Complete"
-                        option(value="Complete") Complete
-                  td
-                    select.ui.fluid.dropdown(name="#{fix.fixNumber}-Regression")
-                      option(value="#{fix.regression}") #{fix.regression}
-                      unless fix.regression == "Not Started"
-                        option(value="Not-Started") Not Started
-                      unless fix.regression == "In Progress"
-                        option(value="In-Progress") In Progress
-                      unless fix.regression == "Blocked"
-                        option(value="Blocked") Blocked
-                      unless fix.regression == "Complete"
-                        option(value="Complete") Complete
-                  td
-                    select.ui.fluid.dropdown(name="#{fix.fixNumber}-Stress")
-                      option(value="#{fix.stress}") #{fix.stress}
-                      unless fix.stress == "Not Started"
-                        option(value="Not-Started") Not Started
-                      unless fix.stress == "In Progress"
-                        option(value="In-Progress") In Progress
-                      unless fix.stress == "Blocked"
-                        option(value="Blocked") Blocked
-                      unless fix.stress == "Complete"
-                        option(value="Complete") Complete
-                  td
-                    .ui.fitted.toggle.checkbox
-                      if fix.whql
-                        input(type="checkbox" name="#{fix.fixNumber}-WHQL" checked  value="on")
-                      else
-                         input(type="checkbox" name="#{fix.fixNumber}-WHQL" unchecked value="off")
-                         input(type="hidden" name="#{fix.fixNumber}-WHQL" value="off")
-                      label
-                  td
-                    .ui.fitted.toggle.checkbox
-                      if fix.readMe
-                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" checked value="on")
-                      else
-                        input(type="checkbox" name="#{fix.fixNumber}-ReadMe" unchecked value="off")
-                        input(type="hidden" name="#{fix.fixNumber}-ReadMe" value="off")
-                      label
-                      //-
-                        input(type="hidden" name="fix" value="#{fix.fixNumber}")
-                      //-
-                        updating readMe and whql checkboxes from server
-          .ui.clearing.divider
-          .ui.buttons
-            input.ui.primary.basic.button( type="submit" value="save")
-            .or
-            a.ui.red.basic.button#addFix Add Fix
+
+table.ui.table
+  thead
+    tr
+      th.one.wide Number
+      th.three.wide Title
+      th.two.wide Line Item Verification
+      th.two.wide Regression
+      th.two.wide Stress
+      th.one.wide WHQL
+      th.one.wide ReadMe
+      th.one.wide
+  tbody
+    each fix in fixes
+      tr
+        form(method="post" action="/fix/save" id="#{fix.fixNumber}-saveFix")
+          td
+            a(href="#") #{fix.fixNumber}
+          td #{fix.title}
+          td
+            select.ui.fluid.dropdown(name="LIV" form="#{fix.fixNumber}-saveFix") 
+              option(value="#{fix.liv}") #{fix.liv}
+              unless fix.liv == "Not Started" 
+                option(value="Not-Started") Not Started
+              unless fix.liv == "In Progress"
+                option(value="In-Progress") In Progress
+              unless fix.liv == "Blocked"
+                option(value="Blocked") Blocked
+              unless fix.liv == "Complete"
+                option(value="Complete") Complete
+          td
+            select.ui.fluid.dropdown(name="Regression" form="#{fix.fixNumber}-saveFix")
+              option(value="#{fix.regression}") #{fix.regression}
+              unless fix.regression == "Not Started"
+                option(value="Not-Started") Not Started
+              unless fix.regression == "In Progress"
+                option(value="In-Progress") In Progress
+              unless fix.regression == "Blocked"
+                option(value="Blocked") Blocked
+              unless fix.regression == "Complete"
+                option(value="Complete") Complete
+          td
+            select.ui.fluid.dropdown(name="Stress" form="#{fix.fixNumber}-saveFix")
+              option(value="#{fix.stress}") #{fix.stress}
+              unless fix.stress == "Not Started"
+                option(value="Not-Started") Not Started
+              unless fix.stress == "In Progress"
+                option(value="In-Progress") In Progress
+              unless fix.stress == "Blocked"
+                option(value="Blocked") Blocked
+              unless fix.stress == "Complete"
+                option(value="Complete") Complete
+          td
+            .ui.checkbox
+              if fix.whql == 1
+                input(type="checkbox" name="WHQL" checked="checked"  value=0 )
+                |it is one                        
+              if fix.whql == 0
+                input(type="checkbox" name="WHQL" unchecked value=1)
+              label
+          td
+            .ui.checkbox
+              if fix.readMe == 1
+                input(type="checkbox" name="ReadMe" checked="checked" value=0)
+              if fix.readMe == 0
+                input(type="checkbox" name="ReadMe" unchecked value=1)
+              label
+          td
+            input(type="hidden" name="fixNumber" value="#{fix.fixNumber}")
+            input.ui.primary.basic.button(type="submit" value="save")
+.ui.clearing.divider
+a.ui.red.basic.button#addFix Add Fix
+          //-
+            .ui.buttons
+              input.ui.primary.basic.button( type="submit" value="save")
+              .or
+              a.ui.red.basic.button#addFix Add Fix
