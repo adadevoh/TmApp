@@ -2,6 +2,7 @@
 var model = require('../models/base');
 
 exports.dashboard = function(req, res){
+    console.log('session ID: ', req.session.id);
     var fixes = new model();
     fixes.tableName = 'fixes';
 
@@ -31,18 +32,4 @@ exports.dashboard = function(req, res){
     });
     //unless is true if the condition evaluates to false, and false if it evaluaates to true
     //so in index.jade it means if this condition is true do not display the option, if it is false display the option
-    
-
-    //some session test/debugging code
-    //console.log( 'req.session' );
-    //console.log( req.session );
-    //sess = req.session;
-    //req.session.user = 'tester';
-    //console.log( 'index.js sess email: ' + req.session.user);
-
-    //console.log( sess );
-    //sess.id = 'tester';
-    /*req.session.destroy( function ( err ) {
-        console.log( 'destroyed session' );
-    });*/
 };

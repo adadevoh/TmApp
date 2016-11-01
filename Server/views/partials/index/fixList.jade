@@ -7,7 +7,8 @@ table.ui.table
       th.three.wide Title
       th.two.wide Line Item Verification
       th.two.wide Regression
-      th.two.wide Stress
+      //-
+        th.two.wide Stress
       th.one.wide WHQL
       th.one.wide ReadMe
       th.one.wide
@@ -40,17 +41,18 @@ table.ui.table
                 option(value="Blocked") Blocked
               unless fix.regression == "Complete"
                 option(value="Complete") Complete
-          td
-            select.ui.fluid.dropdown(name="Stress" form="#{fix.fixNumber}-saveFix")
-              option(value="#{fix.stress}") #{fix.stress}
-              unless fix.stress == "Not Started"
-                option(value="Not Started") Not Started
-              unless fix.stress == "In Progress"
-                option(value="In Progress") In Progress
-              unless fix.stress == "Blocked"
-                option(value="Blocked") Blocked
-              unless fix.stress == "Complete"
-                option(value="Complete") Complete
+          //-
+            td
+              select.ui.fluid.dropdown(name="Stress" form="#{fix.fixNumber}-saveFix")
+                option(value="#{fix.stress}") #{fix.stress}
+                unless fix.stress == "Not Started"
+                  option(value="Not Started") Not Started
+                unless fix.stress == "In Progress"
+                  option(value="In Progress") In Progress
+                unless fix.stress == "Blocked"
+                  option(value="Blocked") Blocked
+                unless fix.stress == "Complete"
+                  option(value="Complete") Complete
           td.ui.form
             .inline.fields
               .field
@@ -84,13 +86,30 @@ table.ui.table
                     else
                       input(type="radio" name="ReadMe" value=0)
                     label false
-          td
-            .ui.checkbox
-              if fix.readMe == 1
-                input(type="checkbox" name="ReadMe" checked="checked" value=0)
-              if fix.readMe == 0
-                input(type="checkbox" name="ReadMe" unchecked value=1)
-              label
+          td.ui.form
+            .inline.fields
+              .field
+                .ui.radio.checkbox
+                  if fix.readMe == 1
+                    input(type="radio" name="ReadMe" checked="checked" value=1)
+                  else
+                    input(type="radio" name="ReadMe" value=1)
+                  label Yes
+              .field
+                .ui.radio.checkbox
+                  if fix.readMe == 0
+                    input(type="radio" name="ReadMe" checked="checked"  value=0)
+                  else
+                    input(type="radio" name="ReadMe" value=0)
+                  label No
+          //-
+            td
+              .ui.checkbox
+                if fix.readMe == 1
+                  input(type="checkbox" name="ReadMe" checked="checked" value=0)
+                if fix.readMe == 0
+                  input(type="checkbox" name="ReadMe" unchecked value=1)
+                label
           td
             input(type="hidden" name="fixNumber" value="#{fix.fixNumber}")
             input.ui.primary.basic.button(type="submit" value="save")

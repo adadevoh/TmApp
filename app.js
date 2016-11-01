@@ -26,14 +26,58 @@ app.use( bodyParser.urlencoded( { extended: false }) );
 app.use( cookieParser() );
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use( express.static( path.join( __dirname, 'public' ) ) );
-app.use( session({ secret:'123456789qwerty'}));//express-session
-//app.use( session( { cookieName: 'tmApp', secret: '123456789qwerty', duration: 24 * 60 * 60 * 1000, activeDuration: 1000 * 60 * 5 }) );//client-sessions
+app.use( session({ secret:'123456789qwerty', cookie: {maxAge: 600000}}));//express-session
+
+app.get('/login', function(req, res){
+    console.log('testing authentication logic');
+    console.log('session ID: ', req.session.id);
+    console.log();
+    //req.session.user = 'joshua';
+    //if no valid session, render login page
+    if(req.session.user == undefined)
+        res.send('this is the login page');//will render login page here
+    else{
+        console.log('going home baby!');
+        res.redirect('/');
+    }  
+})
+
+app.post('/login', function(req, res){
+    console.log('login-post');
+    console.log(req.body.user);
+    console.log('session ID: ', req.session.id);
+    console.log();
+    //authenticate against db or whatever here
+    //check for existing session, if none, then check for post credentials
+    if(req.body.user == 'joshua'){
+        req.session.user = req.body.user;
+        res.direct('/');
+    }
+    else{
+        res.redirect('/login');
+    }
+});
+//authentication middleware, for every other route that is not /login
+app.use(function(req, res, next){
+    //if no valid session, redirect to login page
+    if(req.session.user == undefined){
+        console.log('you are not logged in');
+        console.log('session ID: ', req.session.id);
+        console.log();
+        res.redirect('/login');
+    }
+    else{
+        console.log('redirect else');
+        next();
+    }
+})
 
 
-
-app.use('/', routes);
 app.use( '/users', users );
 app.use( '/fix', fix );
+app.use('/', routes);
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -65,7 +109,6 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 
 
 module.exports = app;
