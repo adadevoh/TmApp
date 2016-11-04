@@ -1,6 +1,5 @@
 ﻿var express = require('express');
 var router = express.Router();
-var utilities = require('../utilities.js');
 
 /* GET users listing. */
 router.get( '/',/* utilities.isAuthenticated,*/ function ( req, res ) {

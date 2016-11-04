@@ -2,16 +2,18 @@
 
 block content
   .ui.segment
-    .ui.top.attached.tabular.menu
+    //-
+      .ui.top.attached.tabular.menu
+    .ui.secondary.pointing.menu
       a.item.active(data-tab="Fixes")
         h2 Fixes
       a.item(data-tab="Bugs")
         h2 Bugs
-    .ui.bottom.attached.tab.segment.active(data-tab="Fixes")
+    .ui.bottom.attached.tab.active(data-tab="Fixes")
       if fixCount == 0 
         p No fixes in your queue
         .ui.clearing.divider
-        button.ui.blue.basic.button#addFix Add Fix
+        button.ui.red.basic.button#addFix Add Fix
       else
         //p #{fixCount} Fixes
         include ./partials/index/fixList
@@ -19,24 +21,29 @@ block content
 
       //.ui.clearing.divider
       //button.ui.primary.basic.button Add Fix
-    .ui.bottom.attached.tab.segment(data-tab="Bugs")
+    .ui.bottom.attached.tab(data-tab="Bugs")
       p sorry no bugs
       .ui.clearing.divider
       button.ui.red.basic.button Add Bug
   .ui.segment
     h2 Items
-    .ui.three.column.grid
-      .column
-        h4 To Dos
-        unless toDos
-          p Nothing in To Do list
-          //-
-            .ui.vertical.divider
-      
-      .column
-        h4 Notes
-        //-
-          .ui.vertical.divider
+    .ui.secondary.pointing.menu
+      a.item.active(data-tab="ToDos")
+        h3 To Dos
+      a.item(data-tab="Notes")
+        h3 Notes
+      a.item(data-tab="Reminders")
+        h3 Reminders
+    .ui.bottom.attached.tab.active(data-tab="ToDos")
+      unless toDos
+        p Nothing in ToDo list
 
-      .column
-        h4 Reminders
+    .ui.bottom.attached.tab(data-tab="Notes")
+
+    .ui.bottom.attached.tab(data-tab="Reminders")
+
+
+    .ui.clearing.divider
+    button.ui.red.basic.button#addItem Add Item
+
+    .ui.small.modal#addItemModal

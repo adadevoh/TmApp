@@ -32,7 +32,7 @@ app.get('/login', function(req, res){
     console.log('testing authentication logic');
     console.log('session ID: ', req.session.id);
     console.log();
-    //req.session.user = 'joshua';
+    req.session.user = 'joshua';
     //if no valid session, render login page
     if(req.session.user == undefined)
         res.send('this is the login page');//will render login page here

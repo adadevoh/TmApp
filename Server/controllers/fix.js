@@ -1,8 +1,57 @@
 ﻿var base = require( '../models/base' );
 var fix = require('../models/fix');
 
+//route: /fix/add
 exports.add = function (req, res) {
+    console.log(req.body);
+
+    var model = new base();
+    model.tableName = 'fixes';
+    var data = {};
+
+    if(req.body.fixNumber == ""|| req.body.title == ""){
+        res.locals = {};
+        message = "invalid entry for fiX number";
+        console.log(res.locals);
+        res.redirect('/?error='+message);
+    }
+    else{
+        for(var key in req.body){
+            if(key!= "addOneTestLineItem")
+                data[key] = req.body[key];
+        } 
+        console.log("DATA!!!");
+        console.log(data);
+        model.create(data, function(err, results){
+            if(!err){
+                message = "successfully added "+req.body.fixNumber; 
+                res.redirect('/?success='+message)
+            }
+            else{
+                console.log(err);
+            }
+        })
+    }
 };
+
+//route: /fix/testComplete/:fixNumber
+exports.testComplete = function(req, res){
+    console.log(req.body);
+    var model = new base();
+    model.tableName = 'fixes';
+
+    var id = {fixNumber: req.body.fixNumber};
+    var columns = {testComplete: true};
+    var data = [columns, id]
+    model.update(data, function(err, results){
+        if(!err){
+            res.redirect('/');
+        }
+        else{
+            console.log(err);
+        }
+    });
+}
 
 // route:  /fix/save
 exports.save = function ( req, res ) {
@@ -23,31 +72,26 @@ exports.save = function ( req, res ) {
         var data = [];
         var id = {fixNumber:req.body.fixNumber};
         var columns = {}
+
+        //go through body and if value != fixNumber add it to the column object/associative array
         for(var key in req.body ){
             if(key !='fixNumber') 
                 columns[key] = req.body[key];
-            /*if(key == 'WHQL'){
-                if(req.body[key] == 'off'){
-                    columns[key] = 0;
-                }
-                else{
-                    columns[key] = 1;
-                }
-            }
-            if(key == 'ReadMe'){
-                if(req.body[key] == 'off'){
-                    columns[key] = 0;
-                }
-                else{
-                    columns[key] = 1;
-                }
-            }*/
         }
         console.log('columns: ');
         console.log(columns)
         data = [columns, id];
-        model.update(data);
-        res.redirect('/');
+        model.update(data, function(err, results){
+            if(!err){
+                console.log("update results:");
+                console.log(results)
+                res.redirect('/');
+            }
+            else{
+                console.log(err);
+            }
+        });
+        
     }
     //model.update()
 
@@ -70,36 +114,4 @@ exports.save = function ( req, res ) {
             
         j++;
     }
-
-    /*console.log('objs: ')
-    console.log(objs)
-    var i = 0;
-    for(var o in objs){
-        console.log('o: ')
-        console.log(objs[o])
-        console.log();
-        console.log();
-        console.log('obj: ');
-        console.log(objs[i]);
-        console.log();
-        console.log('i: '+ i);
-        console.log(objs[i].LIV);
-        i++
-        if(objs[o].ReadMe == "off"){objs[o].ReadMe = 0}
-        if(objs[o].ReadMe == "on"){objs[o].ReadMe = 1}
-        if(objs[o].WHQL == "off"){objs[o].WHQL = 0}
-        if(objs[o].WHQL == "on"){objs[o].WHQL = 1}
-        model.update([ { liv:objs[o].LIV, regression:objs[o]['Regression'], stress:objs[o]['Stress'], whql:objs[o]['WHQL'], readme:objs[o]['ReadMe'] }, {fixNumber:objs[o]['fixNumber']} ], function(err, results){
-            if(err){
-                console.log('fix update error!');
-                console.log(err);
-            }
-        })
-    }*/
-
-    //res.redirect('/');
 };
-
-function parseFixSaveFormData(){
-
-}

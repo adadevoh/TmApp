@@ -9,6 +9,10 @@ a {
   color: #00b7ff;
 }
 
+#main{
+	width: 1200px;
+		padding-bottom: 8em;
+}
 
 .ui.inverted.menu{
 	height: 45px;

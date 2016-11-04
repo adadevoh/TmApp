@@ -2,6 +2,12 @@
 var model = require('../models/base');
 
 exports.dashboard = function(req, res){
+    if(req.query.error){
+        console.log('ERROR: '+req.query.error)
+    }
+    if(req.query.success){
+        console.log('SUCCESS: '+req.query.success)
+    }
     console.log('session ID: ', req.session.id);
     var fixes = new model();
     fixes.tableName = 'fixes';

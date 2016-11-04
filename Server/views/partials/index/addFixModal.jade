@@ -1,26 +1,33 @@
 .ui.small.modal#addFixModal
   .header Add Fix
   .content
-    form.ui.form(method="post" action="/")
+    form.ui.form(method="post" action="/fix/add")
       .fields
-        .six.wide.field
+        .three.wide.field
           label Fix Number
           input#fixNumber(type="text" name="fixNumber" placeholder="Fix Number")
         .six.wide.field
           label Title
-          input#fixTitle(type="text" name="fixTitle" placeholder="Title")
+          input#fixTitle(type="text" name="title" placeholder="Title")
+        .three.wide.field
+          label Select Sprint
+          select.ui.fluid.floating.dropdown.button(name="sprint")
+            option(value="") Sprint
+            option(value="Sprint1") Sprint 1
+            option(value="Sprint2") Sprint 2
+            option(value="Sprint3") Sprint 3
       .fields
         .six.wide.field
           label Environment
-          textarea#fixEnvironment(rows="2" name="fixEnvironment")
+          textarea#fixEnvironment(rows="2" name="environment")
         .three.wide.field
           label WHQL
           .field
             .ui.radio.checkbox
-                input(type="radio" name="whql" value="yes")
+                input(type="radio" name="whql" value=1)
                 label Yes
             .ui.radio.checkbox
-                input(type="radio" name="whql" value="no")
+                input(type="radio" name="whql" value=0)
                 label No
         .three.wide.field
           label Create OnteTest LineItem
@@ -34,4 +41,5 @@
             option(value="LTSR-7.6-CU1") LTSR 7.6 CU1
             option(value="LTSR-7.6-CU2") LTSR 7.6 CU2
             option(value="LTSR-7.6-CU3") LTSR 7.6 CU3
+      input(type="hidden" name="owner", value="joshuaada")
       button.ui.blue.submit.button(type="submit") Submit
