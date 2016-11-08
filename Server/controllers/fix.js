@@ -1,6 +1,26 @@
 ﻿var base = require( '../models/base' );
 var fix = require('../models/fix');
 
+
+//will move this to api section once I start building it out
+exports.fixlist = function(req, res){
+    var model = new base();
+    model.tableName = 'fixes';
+
+    model.readAll(undefined, function(err, results){
+        if(!err){
+            console.log('fixList results')
+            console.log(results)
+            res.status(200)
+            res.json(results);
+        }
+        else{
+            console.log('fixList ERRORS')
+            console.log(err);
+        }
+    })
+}
+
 //route: /fix/add
 exports.add = function (req, res) {
     console.log(req.body);
@@ -113,5 +133,5 @@ exports.save = function ( req, res ) {
         }
             
         j++;
-    }
+    }*/
 };

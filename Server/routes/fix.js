@@ -8,5 +8,6 @@ var fixCtrl = require( '../controllers/fix.js' );
 router.post('/save', fixCtrl.save);
 router.post('/add', fixCtrl.add);
 router.post('/testComplete/:fixNumber', fixCtrl.testComplete)
+router.get('/fixList',fixCtrl.fixlist);
 
 module.exports = router;

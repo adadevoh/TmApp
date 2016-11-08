@@ -1,0 +1,17 @@
+form.ui.small.basic.modal(method="post" id="#{fix.fixNumber}testCompleteModal" action="/fix/testComplete/#{fix.fixNumber}")
+  input(type="hidden" name="fixNumber" value="#{fix.fixNumber}")
+  i.close.icon
+  .header Are you sure you want to mark this fix as Test Complete?
+  .content This action is irreversible.
+    
+  .actions
+    .ui.red.basic.cancel.inverted.button
+      i.remove.icon 
+      |No
+    button.ui.green.ok.inverted.button(type="submit")
+      i.checkmark.icon
+      |Yes
+
+
+
+

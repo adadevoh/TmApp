@@ -1,4 +1,4 @@
-.ui.small.modal#addFixModal
+.ui.small.modal(id="addFixModal")
   .header Add Fix
   .content
     form.ui.form(method="post" action="/fix/add")
@@ -38,8 +38,10 @@
           label Select Project
           select.ui.fluid.floating.dropdown.button(name="project")
             option(value="") Projects
-            option(value="LTSR-7.6-CU1") LTSR 7.6 CU1
-            option(value="LTSR-7.6-CU2") LTSR 7.6 CU2
-            option(value="LTSR-7.6-CU3") LTSR 7.6 CU3
+            option(value="LTSR 7.6 CU1") LTSR 7.6 CU1
+            option(value="LTSR 7.6 CU2") LTSR 7.6 CU2
+            option(value="LTSR 7.6 CU3") LTSR 7.6 CU3
       input(type="hidden" name="owner", value="joshuaada")
-      button.ui.blue.submit.button(type="submit") Submit
+      .actions
+        button.ui.right.blue.submit.button(type="submit") Submit
+        .ui.right.negative.deny.button Cancel
