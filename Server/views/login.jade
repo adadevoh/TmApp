@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/semantic/semantic.css')
+    link(rel='stylesheet', href='/stylesheets/custom.css')
+  body
+    header
+      nav.ui.large.inverted.menu#banner
+
+
+    .ui.container#main
+      .ui.middle.aligned.center.aligned.grid
+        .column#login
+          form.ui.large.form(method="post" action="/login")
+            .ui.stacked.segment
+              .field
+                .ui.left.icon.input
+                  i.user.icon
+                  input(type="text" name="username" placeholder="Username")
+              .field
+                .ui.left.icon.input
+                  i.lock.icon
+                  input(type="password" name="password" placeholder="password")
+              input.ui.fluid.large.teal.submit.button(type="submit" value="login")
+
+
+    footer
+      .ui.footer.segment#footer
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+    script(src='/semantic/semantic.min.js')
+    script(src='/scripts/custom.js')

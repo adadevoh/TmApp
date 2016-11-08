@@ -13,6 +13,9 @@ a {
 	width: 1200px;
 		padding-bottom: 8em;
 }
+#login{
+	max-width:450px;
+}
 
 .ui.inverted.menu{
 	height: 45px;

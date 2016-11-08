@@ -1,49 +1,50 @@
 ﻿extends layout
 
 block content
-  .ui.segment
-    //-
-      .ui.top.attached.tabular.menu
-    .ui.secondary.pointing.menu
-      a.item.active(data-tab="Fixes")
-        h2 Fixes
-      a.item(data-tab="Bugs")
-        h2 Bugs
-    .ui.bottom.attached.tab.active(data-tab="Fixes")
-      if fixCount == 0 
-        p No fixes in your queue
+  .ui.container#main
+    .ui.segment
+      //-
+        .ui.top.attached.tabular.menu
+      .ui.secondary.pointing.menu
+        a.item.active(data-tab="Fixes")
+          h2 Fixes
+        a.item(data-tab="Bugs")
+          h2 Bugs
+      .ui.bottom.attached.tab.active(data-tab="Fixes")
+        if fixCount == 0 
+          p No fixes in your queue
+          .ui.clearing.divider
+          button.ui.blue.basic.button#addFix Add Fix
+        else
+          //p #{fixCount} Fixes
+          include ./partials/index/fixList
+        include ./partials/index/addFixModal
+
+        //.ui.clearing.divider
+        //button.ui.primary.basic.button Add Fix
+      .ui.bottom.attached.tab(data-tab="Bugs")
+        p sorry no bugs
         .ui.clearing.divider
-        button.ui.blue.basic.button#addFix Add Fix
-      else
-        //p #{fixCount} Fixes
-        include ./partials/index/fixList
-      include ./partials/index/addFixModal
+        button.ui.blue.basic.button Add Bug
+    .ui.segment
+      h2 Items
+      .ui.secondary.pointing.menu
+        a.item.active(data-tab="ToDos")
+          h3 To Dos
+        a.item(data-tab="Notes")
+          h3 Notes
+        a.item(data-tab="Reminders")
+          h3 Reminders
+      .ui.bottom.attached.tab.active(data-tab="ToDos")
+        unless toDos
+          p Nothing in ToDo list
 
-      //.ui.clearing.divider
-      //button.ui.primary.basic.button Add Fix
-    .ui.bottom.attached.tab(data-tab="Bugs")
-      p sorry no bugs
+      .ui.bottom.attached.tab(data-tab="Notes")
+
+      .ui.bottom.attached.tab(data-tab="Reminders")
+
+
       .ui.clearing.divider
-      button.ui.blue.basic.button Add Bug
-  .ui.segment
-    h2 Items
-    .ui.secondary.pointing.menu
-      a.item.active(data-tab="ToDos")
-        h3 To Dos
-      a.item(data-tab="Notes")
-        h3 Notes
-      a.item(data-tab="Reminders")
-        h3 Reminders
-    .ui.bottom.attached.tab.active(data-tab="ToDos")
-      unless toDos
-        p Nothing in ToDo list
+      button.ui.blue.basic.button#addItem Add Item
 
-    .ui.bottom.attached.tab(data-tab="Notes")
-
-    .ui.bottom.attached.tab(data-tab="Reminders")
-
-
-    .ui.clearing.divider
-    button.ui.blue.basic.button#addItem Add Item
-
-    .ui.small.modal#addItemModal
+      .ui.small.modal#addItemModal

@@ -9,8 +9,8 @@ exports.fixlist = function(req, res){
 
     model.readAll(undefined, function(err, results){
         if(!err){
-            console.log('fixList results')
-            console.log(results)
+            //console.log('fixList results')
+            //console.log(results)
             res.status(200)
             res.json(results);
         }

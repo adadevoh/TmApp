@@ -11,6 +11,8 @@ var routes = require('./Server/routes/index');
 var users = require( './Server/routes/users' );
 var fix = require('./Server/routes/fix');
 
+var Base = require('./Server/models/base');
+
 var app = express();
 
 
@@ -28,14 +30,20 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use( express.static( path.join( __dirname, 'public' ) ) );
 app.use( session({ secret:'123456789qwerty', cookie: {maxAge: 600000}}));//express-session
 
+app.get('/logout', function(req, res){
+    req.session.destroy();
+    res.render('login');
+})
+
 app.get('/login', function(req, res){
     console.log('testing authentication logic');
     console.log('session ID: ', req.session.id);
     console.log();
-    req.session.user = 'joshua';
+    //req.session.user = 'joshua';
     //if no valid session, render login page
     if(req.session.user == undefined)
-        res.send('this is the login page');//will render login page here
+        res.render('login');
+        //res.send('this is the login page');//will render login page here
     else{
         console.log('going home baby!');
         res.redirect('/');
@@ -49,13 +57,31 @@ app.post('/login', function(req, res){
     console.log();
     //authenticate against db or whatever here
     //check for existing session, if none, then check for post credentials
-    if(req.body.user == 'joshua'){
-        req.session.user = req.body.user;
-        res.direct('/');
-    }
-    else{
-        res.redirect('/login');
-    }
+    console.log(req.body);
+
+    var model = new Base();
+    model.tableName = 'users';
+    model.read({userid:req.body.username}, function(err, results){//check against db is userid exists
+        if(!err){//user exists, now check if there is only 1 result 
+            if(results.length == 1){//if only one result, check if req.body.password == user password
+                if(results[0].password == req.body.password){//if req.body.password = user password, then set session.user and redirect to home
+                    req.session.user = results[0].userid;
+                    res.redirect('/');
+                }
+                else{//password is wrong/render login page with error messages
+                    res.render('login');
+                }
+            }
+            else{//wrong user name, render with error messages
+                res.render('login');
+            }
+            console.log(results);
+        }
+        else{//db error, redirect to the login page.
+            res.redirect('/login');
+            console.log(err);
+        }
+    });
 });
 //authentication middleware, for every other route that is not /login
 app.use(function(req, res, next){

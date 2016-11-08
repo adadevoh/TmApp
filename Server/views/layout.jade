@@ -18,19 +18,25 @@ html
                   a.item Create Project
                   .divider
                   a.item(href="#") View all projects
+        .ui.compact.right.selection.dropdown.item
+          i.dropdown.icon
+          .text User Name
+          .menu
+            a.item(href="/logout") logout
+      //-  
         a.right.header.item(href="/")
           img.logo(src="logo.png")
           |User Name
         a.item Tester Item 1
             
 
-
-    .ui.container#main
-      block content
+    //-
+      .ui.container#main
+    block content
     #blankspace
     footer
       .ui.footer.segment#footer
 
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
-  script(src='/semantic/semantic.min.js')
-  script(src='/scripts/custom.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+    script(src='/semantic/semantic.min.js')
+    script(src='/scripts/custom.js')
