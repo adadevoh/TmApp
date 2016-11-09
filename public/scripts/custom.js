@@ -51,7 +51,17 @@ $(document)
         })
       ;
     })
-  ;
+;
+
+//transition messages
+$( '.message .close' )
+  .on( 'click', function () {
+    $( this )
+      .closest( '.message' )
+      .transition( 'fade' )
+    ;
+} )
+;
 
 function test_Complete(fixID){
     console.log("test complete: "+fixID);

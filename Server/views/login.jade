@@ -23,6 +23,11 @@ html
                   input(type="password" name="password" placeholder="password")
               input.ui.inverted.fluid.large.violet.submit.button(type="submit" value="login")
               .ui.error.message
+              if message
+                .ui.negative.transition.message
+                  i.close.icon
+                  p #{message}
+
 
     footer
       .ui.footer.segment#footer

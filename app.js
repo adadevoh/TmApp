@@ -32,7 +32,7 @@ app.use( session({ secret:'123456789qwerty', cookie: {maxAge: 600000}}));//expre
 
 app.get('/logout', function(req, res){
     req.session.destroy();
-    res.render('login');
+    res.redirect('/');
 })
 
 app.get('/login', function(req, res){
@@ -68,12 +68,12 @@ app.post('/login', function(req, res){
                     req.session.user = results[0].userid;
                     res.redirect('/');
                 }
-                else{//password is wrong/render login page with error messages
-                    res.render('login');
+                else {//password is wrong/render login page with error messages
+                    res.render( 'login', { message: "Sorry, the password/username entered is wrong" });
                 }
             }
             else{//wrong user name, render with error messages
-                res.render('login');
+                res.render( 'login', { message: "Sorry, that username is incorrect" });
             }
             console.log(results);
         }
@@ -92,7 +92,14 @@ app.use(function(req, res, next){
         console.log();
         res.redirect('/login');
     }
-    else{
+    else {
+        app.locals = {
+            user: req.session.user,
+            messages: {
+                type: "",
+                value: ""
+            }
+        }
         console.log('redirect else');
         next();
     }

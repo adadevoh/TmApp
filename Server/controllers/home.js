@@ -29,10 +29,20 @@ exports.dashboard = function(req, res){
             //console.log(fixResults.length);
             
             if(fixResults.length == 0){
-                res.render('index', {title: 'TmApp Dashboard', fixCount: 0 })
+                res.render( 'index', {
+                    title: 'TmApp Dashboard', fixCount: 0,
+                    user: req.app.locals.user,
+                    message: req.app.locals.messages
+                })
             }
             else{
-                res.render( 'index', { title: 'TmApp Dashboard', fixCount: fixResults.length, fixes: fixResults });
+                res.render( 'index', {
+                    title: 'TmApp Dashboard',
+                    fixCount: fixResults.length,
+                    fixes: fixResults,
+                    user: req.app.locals.user,
+                    message: req.app.locals.messages
+                });
             }
         }
     });
