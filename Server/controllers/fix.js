@@ -1,5 +1,5 @@
-﻿var base = require( '../models/base' );
-var fix = require('../models/fix');
+﻿var base = require( '../../api/models/base' );
+var fix = require('../../api/models/fix');
 
 
 //will move this to api section once I start building it out
@@ -11,8 +11,16 @@ exports.fixlist = function(req, res){
         if(!err){
             //console.log('fixList results')
             //console.log(results)
-            res.status(200)
-            res.json(results);
+            if(results.length>0){
+                console.log("theres fixes");
+                res.status(200)
+                res.json(results);
+            }
+            else{
+                console.log("no fixes");
+                res.status(204);
+                res.json({message:"No fixes for "+req.app.locals.user});
+            }
         }
         else{
             console.log('fixList ERRORS')

@@ -62,12 +62,45 @@ class Base {
     limit provides a limit for the number of rows to return.
     limit can be provided as 'undegined', and this will simply return ALL rows in the table
     */
-    readAll(limit, callback){
-        var limit = (typeof limit == undefined) ? '' : limit;//if limit is undefined, set it to '', otherwise proceed with limit
+    readAll(data, callback){
+        var clause = "";
+        data = (typeof data == undefined) ? "": data; 
+        if(typeof data == undefined){
+            clause = "";
+        }
+        else{
+            clause = "WHERE ";
+            console.log('size of data');
+            console.log(Object.keys(data).length);
+            if(Object.keys(data).length > 1){
+                for(var key in data){
+                    connection.escape(data[key]);
+                    connection.escape(key);
+                    clause = clause + key +"="+"'"+data[key]+"'" + " AND ";
+                    //WHERE column='value' AND
+                    //WHERE column='value' AND column1='value1' AND  
+                }
+                clause = clause.slice(0,-4);
+            }
+            else{
+                for(var key in data){
+                    connection.escape(data[key]);
+                    connection.escape(key);
+                    clause = clause + key +"="+"'"+data[key]+"'"; 
+                }                
+            }
+            
+        }
+        
+        console.log("clause: " + clause);
+        //data = connection.escape(clause);
+        //clause = clause.slice(1, -1);
+        //var limit = (typeof limit == undefined) ? '' : limit;//if limit is undefined, set it to '', otherwise proceed with limit
         //console.log('start of base::readAll()');
-        limit = connection.escape(limit);
-        limit = limit.slice(1, -1);//remove extra quotations from limit. The quotaions are added by connection.escape();
-        var query = connection.query("SELECT * FROM "+ this.tableName +" "+ limit, callback);
+        //limit = connection.escape(limit);
+        //limit = limit.slice(1, -1);//remove extra quotations from limit. The quotaions are added by connection.escape();
+        //select* from table where column=value
+        var query = connection.query("SELECT * FROM "+ this.tableName +" "+ clause/*limit*/, callback);
         console.log('readAll query, query: '+ query.sql);
     }
 

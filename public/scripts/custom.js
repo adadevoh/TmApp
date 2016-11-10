@@ -12,8 +12,13 @@ $.ajax({
         for(var i = 0;i<fixes.length; i++){
             $("#"+fixes[i]+"testCompleteModal").modal('attach events', "#"+fixes[i]+"testComplete", 'show');
         }
+    },
+    fail: function(jqXHR, textStatus){
+      console.log(textStatus);
+      console.log(jqXHR);
     }
 })
+$.ajax({})
 
 //login form validation
 $(document)
@@ -41,10 +46,10 @@ $(document)
                   type   : 'empty',
                   prompt : 'Please enter your password'
                 },
-                {
+                /*{
                   type   : 'length[6]',
                   prompt : 'Your password must be at least 6 characters'
-                }
+                }*/
               ]
             }
           }

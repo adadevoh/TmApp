@@ -10,8 +10,9 @@ var session = require( 'express-session' );
 var routes = require('./Server/routes/index');
 var users = require( './Server/routes/users' );
 var fix = require('./Server/routes/fix');
+var apiRoutes = require('./api/routes/index');
 
-var Base = require('./Server/models/base');
+var Base = require('./api/models/base');
 
 var app = express();
 
@@ -30,6 +31,9 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use( express.static( path.join( __dirname, 'public' ) ) );
 app.use( session({ secret:'123456789qwerty', cookie: {maxAge: 600000}}));//express-session
 
+//API routes, independent of login logic. These routes only allow for reading data
+app.use('/api', apiRoutes);
+
 app.get('/logout', function(req, res){
     req.session.destroy();
     res.redirect('/');
@@ -39,7 +43,7 @@ app.get('/login', function(req, res){
     console.log('testing authentication logic');
     console.log('session ID: ', req.session.id);
     console.log();
-    //req.session.user = 'joshua';
+    //req.session.user = 'joshuaada';
     //if no valid session, render login page
     if(req.session.user == undefined)
         res.render('login');
@@ -61,7 +65,7 @@ app.post('/login', function(req, res){
 
     var model = new Base();
     model.tableName = 'users';
-    model.read({userid:req.body.username}, function(err, results){//check against db is userid exists
+    model.readKey({userid:req.body.username}, function(err, results){//check against db is userid exists
         if(!err){//user exists, now check if there is only 1 result 
             if(results.length == 1){//if only one result, check if req.body.password == user password
                 if(results[0].password == req.body.password){//if req.body.password = user password, then set session.user and redirect to home
@@ -103,7 +107,7 @@ app.use(function(req, res, next){
         console.log('redirect else');
         next();
     }
-})
+});
 
 
 app.use( '/users', users );

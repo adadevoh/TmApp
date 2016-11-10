@@ -1,7 +1,7 @@
 ﻿var express = require('express');
 var router = express.Router();
-var User = require('../models/user.js');
-var Fix = require('../models/fix.js');
+//var User = require('../../api/models/user.js');
+//var Fix = require('../../api/models/fix.js');
 var home = require('../controllers/home.js');
 
 //user should have current project
@@ -12,7 +12,7 @@ router.post('/', home.dashboard)
 
 
 
-var u = new User();
+//var u = new User();
 //u.showName();
 //console.log( 'role: ' + u.role );
 //u.createTable();
@@ -96,7 +96,7 @@ u.delete({userid: 'user7'}, function(err, result){
     }
 })
 */
-var f = new Fix('LC5035', u);
+//var f = new Fix('LC5035', u);
 
 
 module.exports = router;

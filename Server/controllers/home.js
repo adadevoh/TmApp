@@ -1,5 +1,5 @@
 
-var model = require('../models/base');
+var model = require( '../../api/models/base' );
 
 exports.dashboard = function(req, res){
     if(req.query.error){
@@ -15,7 +15,8 @@ exports.dashboard = function(req, res){
     var bugs = new model();
     bugs.tableName = 'bugs';
 
-    fixes.readAll(undefined, function(fixErr, fixResults){
+    //fixes.readAll(undefined, function(fixErr, fixResults)
+    fixes.readAll({owner: req.app.locals.user}, function(fixErr, fixResults){
         //then do bugs.readAll, and then send results
         //so the if/else logic for fixes.readAll will be nested inside bugs.readAll
         if(fixErr){
