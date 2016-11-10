@@ -46,10 +46,12 @@ class Base {
     }
 
     /*
+    read(): method to read single record (identified by a unique key) from the current table (model) where column = "value"
     data = {column1: value1, column2: value2...}//not yet, this needs work
     nethod promises tor eturn ALL the records that match this data
     i.e. SELECT * FROM table WHERE column1=value1, column2=value2  etc 
     */
+    readKey( data, callback){
         //console.log('start of base::readOne()');
         var query = connection.query("SELECT * FROM "+this.tableName +" WHERE ?"/*+ clause*/, data, callback);
         console.log('read query, query: '+ query.sql);
