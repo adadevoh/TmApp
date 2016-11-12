@@ -1,0 +1,14 @@
+if message.type == "error"
+  .ui.negative.transition.message
+    i.close.icon
+    p #{message.value}
+
+if message.type == "success"
+  .ui.success.transition.message
+    i.close.icon
+    p #{message.value}
+
+if message.type == "info"
+  .ui.info.transition.message
+    i.close.icon
+    p #{message.value}

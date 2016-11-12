@@ -24,9 +24,8 @@ html
               input.ui.inverted.fluid.large.violet.submit.button(type="submit" value="login")
               .ui.error.message
               if message
-                .ui.negative.transition.message
-                  i.close.icon
-                  p #{message}
+                include ./message
+                
 
 
     footer

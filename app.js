@@ -29,7 +29,7 @@ app.use( bodyParser.urlencoded( { extended: false }) );
 app.use( cookieParser() );
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use( express.static( path.join( __dirname, 'public' ) ) );
-app.use( session({ secret:'123456789qwerty', cookie: {maxAge: 600000}}));//express-session
+app.use( session({ secret:'123456789qwerty', cookie: {maxAge: 6000000}}));//express-session, 6,000,000 == 6000 seconds == 100 minutes
 
 //API routes, independent of login logic. These routes only allow for reading data
 app.use('/api', apiRoutes);
@@ -73,11 +73,21 @@ app.post('/login', function(req, res){
                     res.redirect('/');
                 }
                 else {//password is wrong/render login page with error messages
-                    res.render( 'login', { message: "Sorry, the password/username entered is wrong" });
+                    res.render( 'login', { 
+                                            message: {
+                                                value:"Sorry, the password/username entered is wrong",
+                                                type: "error"
+                                            } 
+                                        });
                 }
             }
             else{//wrong user name, render with error messages
-                res.render( 'login', { message: "Sorry, that username is incorrect" });
+                res.render( 'login', { 
+                                        message: {
+                                            value:"Sorry, that username is incorrect",
+                                            type: "error"
+                                        } 
+                                    });
             }
             console.log(results);
         }
