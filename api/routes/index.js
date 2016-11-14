@@ -3,6 +3,6 @@ var router = express.Router();
 var fixCtrl = require( '../controllers/fix.js' );
 
 
-router.get('/fixList',fixCtrl.fixlist);
+router.get('/fixList/:user',fixCtrl.fixlist);
 
 module.exports = router;

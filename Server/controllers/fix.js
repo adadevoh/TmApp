@@ -2,12 +2,14 @@
 var fix = require('../../api/models/fix');
 
 
-//will move this to api section once I start building it out
+//internal access (user logged in) to support parts of the app that currently make api style requests
+//GET: /fix/fixList
 exports.fixlist = function(req, res){
     var model = new base();
     model.tableName = 'fixes';
 
-    model.readAll(undefined, function(err, results){
+    //read all fixes for the current session user
+    model.readAll({owner:req.app.locals.user}, function(err, results){
         if(!err){
             //console.log('fixList results')
             //console.log(results)
@@ -23,13 +25,15 @@ exports.fixlist = function(req, res){
             }
         }
         else{
-            console.log('fixList ERRORS')
+            console.log('fixList db ERROR')
             console.log(err);
+            res.status(500);
+            res.json(err);
         }
     })
 }
 
-//route: /fix/add
+//POST: /fix/add
 exports.add = function (req, res) {
     console.log(req.body);
 
@@ -62,7 +66,7 @@ exports.add = function (req, res) {
     }
 };
 
-//route: /fix/testComplete/:fixNumber
+//POST: /fix/testComplete/:fixNumber
 exports.testComplete = function(req, res){
     console.log(req.body);
     var model = new base();
@@ -81,7 +85,7 @@ exports.testComplete = function(req, res){
     });
 }
 
-// route:  /fix/save
+// POST:  /fix/save
 exports.save = function ( req, res ) {
     var model = new base();
     model.tableName = 'fixes';
@@ -119,7 +123,6 @@ exports.save = function ( req, res ) {
                 console.log(err);
             }
         });
-        
     }
     //model.update()
 

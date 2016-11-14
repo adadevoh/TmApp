@@ -60,6 +60,7 @@ class Base {
     /*
     readAll(): method to read all values from a table.
     data = {column1: value1, column2: value2...}, return all rows mathing columns=values specified
+    SELECT * FROM this.tableName WHERE column1=Value1 AND column2=value2 AND...
     data can be provided as 'undefined', and this will simply return ALL rows in the table
     */
     readAll(data, callback){
