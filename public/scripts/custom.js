@@ -80,6 +80,7 @@ $('#addFixModal').modal('attach events','#addFix','show');//when #addfix button 
 
 $('#addItemModal').modal('attach events','#addItem','show');
 
+$('#calendar').calendar();
 
 //$('.testCompleteModal').modal('attach events','.testComplete','show');
 

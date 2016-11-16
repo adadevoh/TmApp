@@ -8,4 +8,5 @@
 /.ntvs_analysis.dat
 /TmApp.njsproj
 /public/semantic
+/public/bower_components
 /.vscode

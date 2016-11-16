@@ -11,6 +11,7 @@ var routes = require('./Server/routes/index');
 var users = require( './Server/routes/users' );
 var fix = require('./Server/routes/fix');
 var apiRoutes = require('./api/routes/index');
+var items = require('./Server/routes/items');
 
 var Base = require('./api/models/base');
 
@@ -40,8 +41,8 @@ app.get('/logout', function(req, res){
 })
 
 app.get('/login', function(req, res){
-    console.log('testing authentication logic');
-    console.log('session ID: ', req.session.id);
+    //console.log('testing authentication logic');
+    //console.log('session ID: ', req.session.id);
     console.log();
     //req.session.user = 'joshuaada';
     //if no valid session, render login page
@@ -49,15 +50,15 @@ app.get('/login', function(req, res){
         res.render('login');
         //res.send('this is the login page');//will render login page here
     else{
-        console.log('going home baby!');
+        //console.log('user validated, redirecting home');
         res.redirect('/');
     }  
 })
 
 app.post('/login', function(req, res){
-    console.log('login-post');
-    console.log(req.body.user);
-    console.log('session ID: ', req.session.id);
+    //console.log('login-post');
+    //console.log(req.body.user);
+    //console.log('session ID: ', req.session.id);
     console.log();
     //authenticate against db or whatever here
     //check for existing session, if none, then check for post credentials
@@ -101,8 +102,8 @@ app.post('/login', function(req, res){
 app.use(function(req, res, next){
     //if no valid session, redirect to login page
     if(req.session.user == undefined){
-        console.log('you are not logged in');
-        console.log('session ID: ', req.session.id);
+        //console.log('you are not logged in');
+        //console.log('session ID: ', req.session.id);
         console.log();
         res.redirect('/login');
     }
@@ -120,9 +121,10 @@ app.use(function(req, res, next){
 });
 
 
+app.use('/', routes);
 app.use( '/users', users );
 app.use( '/fix', fix );
-app.use('/', routes);
+app.use('/items', items);
 
 
 

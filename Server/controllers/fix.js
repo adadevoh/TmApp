@@ -61,6 +61,8 @@ exports.add = function (req, res) {
             }
             else{
                 console.log(err);
+                message = "Internal Server error";
+                res.redirect('/?error='+message);
             }
         })
     }

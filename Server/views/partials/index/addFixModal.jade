@@ -1,7 +1,7 @@
-.ui.small.modal(id="addFixModal")
+form.ui.form.small.modal(method="post" action="/fix/add" id="addFixModal")
   .header Add Fix
   .content
-    form.ui.form(method="post" action="/fix/add")
+    .ui
       .fields
         .three.wide.field
           label Fix Number
@@ -11,7 +11,7 @@
           input#fixTitle(type="text" name="title" placeholder="Title")
         .three.wide.field
           label Select Sprint
-          select.ui.fluid.floating.dropdown.button(name="sprint")
+          select.ui.fluid.floating.dropdown.button(name="sprint" id="sprint-selection")
             option(value="") Sprint
             option(value="Sprint1") Sprint 1
             option(value="Sprint2") Sprint 2
@@ -36,12 +36,14 @@
             label
         .three.wide.field
           label Select Project
-          select.ui.fluid.floating.dropdown.button(name="project")
+          select.ui.fluid.floating.dropdown.button(name="project" id="project-selection")
             option(value="") Projects
             option(value="LTSR 7.6 CU1") LTSR 7.6 CU1
             option(value="LTSR 7.6 CU2") LTSR 7.6 CU2
             option(value="LTSR 7.6 CU3") LTSR 7.6 CU3
-      input(type="hidden" name="owner", value="joshuaada")
-      .actions
-        button.ui.right.blue.submit.button(type="submit") Submit
-        .ui.right.negative.deny.button Cancel
+      input(type="hidden" name="owner", value="#{user}")
+  .actions
+    .ui.negative.deny.button Cancel
+    .ui.blue.right.labeled.icon.submit.button Submit
+      i.checkmark.icon
+      

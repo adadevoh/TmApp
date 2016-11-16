@@ -1,0 +1,30 @@
+form.ui.form.small.modal(id="addItemModal" method="post" action="/items/add")
+  input(type="hidden" name="owner", value="#{user}")
+  .header Add Item
+  .content
+    .two.fields
+      .nine.wide.field 
+        label Title
+        input(type="text" name="title" placeholder="Title")
+      .five.wide.field
+        label For 
+        input(type="text" name="for" placeholder="Fix/Bug/TCD or leave blank ")
+    .two.fields
+      .five.wide.field
+        label Due Date
+        .ui.calendar(id="calendar")
+          .ui.input.left.icon
+            i.calendar.icon
+            input(type="datetime" name="duedate" placeholder="Due Date")
+      .three.wide.field
+        label Type
+        select.ui.fluid.floating.dropdown.button(name="type" )
+          option(value="") Type
+          option(value="toDo") To Do
+          option(value="note") Note
+          option(value="reminder") Reminder
+
+  .actions
+    .ui.negative.deny.button Cancel
+    .ui.blue.right.labeled.icon.submit.button submit
+      i.checkmark.icon
