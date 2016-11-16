@@ -43,7 +43,7 @@ exports.add = function (req, res) {
 
     if(req.body.fixNumber == ""|| req.body.title == ""){
         res.locals = {};
-        message = "invalid entry for fiX number";
+        message = "Fix Number field cannot be blank ";
         console.log(res.locals);
         res.redirect('/?error='+message);
     }
@@ -56,7 +56,7 @@ exports.add = function (req, res) {
         console.log(data);
         model.create(data, function(err, results){
             if(!err){
-                message = "successfully added "+req.body.fixNumber; 
+                message = "Successfully added "+req.body.fixNumber; 
                 res.redirect('/?success='+message)
             }
             else{

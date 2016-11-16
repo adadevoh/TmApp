@@ -4,9 +4,15 @@ var model = require( '../../api/models/base' );
 exports.dashboard = function(req, res){
     if(req.query.error){
         console.log('ERROR: '+req.query.error)
+        req.app.locals.messages.type = "error";
+        req.app.locals.messages.value = req.query.error;
+        req.query = "";
     }
     if(req.query.success){
         console.log('SUCCESS: '+req.query.success)
+        req.app.locals.messages.type = "success";
+        req.app.locals.messages.value = req.query.success;
+        req.query = "";
     }
     console.log('session ID: ', req.session.id);
     var fixes = new model();

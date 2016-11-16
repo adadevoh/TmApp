@@ -1,14 +1,14 @@
 if message.type == "error"
-  .ui.negative.transition.message
+  .ui.negative.transition.message.center.aligned.segment
     i.close.icon
     p #{message.value}
 
 if message.type == "success"
-  .ui.success.transition.message
+  .ui.success.transition.message.center.aligned.segment
     i.close.icon
     p #{message.value}
 
 if message.type == "info"
-  .ui.info.transition.message
+  .ui.info.transition.message.center.aligned.segment
     i.close.icon
     p #{message.value}
