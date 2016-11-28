@@ -1,0 +1,1 @@
+var base = require( '../../api/models/base' );

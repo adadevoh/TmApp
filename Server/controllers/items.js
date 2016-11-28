@@ -63,3 +63,7 @@ exports.add = function(req, res){
         })
     }
 }
+
+var convertDate = function (inputDate){
+    var arr = inputDate.split(" ");
+}
