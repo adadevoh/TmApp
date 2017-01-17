@@ -7,6 +7,7 @@ exports.itemsList = function(req, res){
     model.readAll({owner:req.app.locals.user}, function(err, results){
         if(!err){
             if(results.length > 0){
+                console.log(results);
                 res.status(200);
                 res.json(results);
             }
@@ -41,6 +42,9 @@ exports.add = function(req, res){
                     if(data[val] == ""){
                         data[val] = null;
                     }
+                    else{
+                        data[val] = convertDate(req.body[val]);
+                    }
                 }
             }
 
@@ -64,6 +68,40 @@ exports.add = function(req, res){
     }
 }
 
+
+
 var convertDate = function (inputDate){
+    //input: 'November 22, 2016 8:57 AM'
+    //required output: 2016-11-22 20:57:00
     var arr = inputDate.split(" ");
+    
+    
+    
+    arr[1] = arr[1].slice(0,-1);
+
+    Months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var output = "";
+    output+=arr[2]+"-";
+    for(var i = 0; i< Months.length; i++){
+        if(Months[i] == arr[0]){
+            output+= (i+1).toString()+"-";
+            break;
+        }
+    }
+    output+=arr[1]+" ";
+
+    var time="";
+    if(arr[4]== "PM"){
+
+        time+= (parseInt(arr[3][0]) +12).toString();
+        //console.log(time);
+        time+=arr[3].slice(1);
+        //console.log(time);
+    }
+    output+=time+":00";
+
+    //console.log(output);
+    return output;
 }
+
+//convertDate();

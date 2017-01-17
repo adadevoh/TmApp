@@ -12,6 +12,7 @@ var users = require( './Server/routes/users' );
 var fix = require('./Server/routes/fix');
 var apiRoutes = require('./api/routes/index');
 var items = require('./Server/routes/items');
+var projects = require('./Server/routes/projects');
 
 var Base = require('./api/models/base');
 
@@ -125,7 +126,7 @@ app.use('/', routes);
 app.use( '/users', users );
 app.use( '/fix', fix );
 app.use('/items', items);
-
+app.use('/projects', projects);
 
 
 // catch 404 and forward to error handler
