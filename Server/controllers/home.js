@@ -1,25 +1,30 @@
 
 var model = require( '../../api/models/base' );
+var request = require('request');
+var apiOptions = {
+    server: "http://localhost:3000/"
+}
 
 exports.dashboard = function(req, res){
     if(req.query.error){
-        console.log('ERROR: '+req.query.error)
+        //console.log('ERROR: '+req.query.error)
         req.app.locals.messages.type = "error";
         req.app.locals.messages.value = req.query.error;
         req.query = "";
     }
     if(req.query.success){
-        console.log('SUCCESS: '+req.query.success)
+        //console.log('SUCCESS: '+req.query.success)
         req.app.locals.messages.type = "success";
         req.app.locals.messages.value = req.query.success;
         req.query = "";
     }
-    console.log('session ID: ', req.session.id);
+    //console.log('session ID: ', req.session.id);
     var fixes = new model();
     fixes.tableName = 'fixes';
+    var fixResults = null;
 
-    var bugs = new model();
-    bugs.tableName = 'bugs';
+    var itemResults = null;
+    var itemsPath = "api/itemList/";
 
     fixes.readAll({owner: req.app.locals.user}, function(fixErr, fixResults){
         //then do bugs.readAll, and then send results
@@ -29,25 +34,41 @@ exports.dashboard = function(req, res){
             console.log(fixErr);
         }
         else{
-            
-            if(fixResults.length == 0){
-                res.render( 'index', {
-                    title: 'TmApp Dashboard', fixCount: 0,
-                    user: req.app.locals.user,
-                    message: req.app.locals.messages
-                })
-            }
-            else{
-                res.render( 'index', {
+            request({
+            url: apiOptions.server+itemsPath+req.app.locals.user,
+            method: "GET",
+            json:{}
+            }, function(err, response, body){
+                if(err){
+                    console.log("api, itemsList response error");
+                    console.log(err);
+                }
+                else{
+                    itemResults = body;
+                    //console.log("itemResults:");
+                    //console.log(itemResults);
+                }
+                var fixCount;
+                var itemCount;
+
+                fixResults.length == 0 ? fixCount = 0: fixCount = fixResults.length;
+
+                itemResults.length == 0 ? itemCount = 0: itemCount = itemResults.length;
+
+                console.log("itemCount: "+itemCount);
+                res.render('index', {
                     title: 'TmApp Dashboard',
-                    fixCount: fixResults.length,
+                    fixCount: fixCount,
                     fixes: fixResults,
+                    items: itemResults,
+                    itemCount: itemCount,
                     user: req.app.locals.user,
                     message: req.app.locals.messages
                 });
-            }
+            });
         }
     });
+
     //unless is true if the condition evaluates to false, and false if it evaluaates to true
     //so in index.jade it means if this condition is true do not display the option, if it is false display the option
 };

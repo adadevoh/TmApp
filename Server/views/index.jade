@@ -29,20 +29,30 @@ block content
         button.ui.blue.basic.button Add Bug
     .ui.segment
       h2 Items
-      .ui.secondary.pointing.menu
-        a.item.active(data-tab="ToDos")
-          h3 To Dos
-        a.item(data-tab="Notes")
-          h3 Notes
-        a.item(data-tab="Reminders")
-          h3 Reminders
-      .ui.bottom.attached.tab.active(data-tab="ToDos")
-        unless toDos
-          p Nothing in ToDo list
+      if itemCount == 0
+        p Nothing in Items List
+      else
+        .ui.secondary.pointing.menu
+          a.item.active(data-tab="ToDos")
+            h3 To Dos
+          a.item(data-tab="Notes")
+            h3 Notes
+          a.item(data-tab="Reminders")
+            h3 Reminders
+        .ui.bottom.attached.tab.active(data-tab="ToDos")
+          each item in items
+            if item.type == "toDo"
+              p #{item.title}
+              
+        .ui.bottom.attached.tab(data-tab="Notes")
+          each item in items
+            if item.type == "note"
+              p #{item.title}
 
-      .ui.bottom.attached.tab(data-tab="Notes")
-
-      .ui.bottom.attached.tab(data-tab="Reminders")
+        .ui.bottom.attached.tab(data-tab="Reminders")
+          each item in items
+            if item.type == "reminder"
+              p #{item.title}
 
 
       .ui.clearing.divider
