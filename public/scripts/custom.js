@@ -18,7 +18,19 @@ $.ajax({
       console.log(jqXHR);
     }
 })
-$.ajax({})
+$.ajax({
+  type: "GET",
+  dataType: "json",
+  url: "http://localhost:3000/items/itemList",
+  success: function(data){
+    console.log(data);
+  },
+  fail: function(jqXHR, textStatus){
+    
+    console.log(textStatus);
+    console.log(jqXHR);
+  }
+})
 
 //login form validation
 $(document)
