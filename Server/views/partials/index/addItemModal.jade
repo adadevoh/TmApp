@@ -1,5 +1,6 @@
 form.ui.form.small.modal(id="addItemModal" method="post" action="/items/add")
-  input(type="hidden" name="owner", value="#{user}")
+  //-
+    input(type="hidden" name="owner", value="#{user}")
   .header Add Item
   .content
     .two.fields
@@ -9,7 +10,7 @@ form.ui.form.small.modal(id="addItemModal" method="post" action="/items/add")
       .five.wide.field
         label For 
         input(type="text" name="for" placeholder="Fix/Bug/TCD or leave blank ")
-    .two.fields
+    .three.fields
       .five.wide.field
         label Due Date
         .ui.calendar(id="calendar")
@@ -23,6 +24,9 @@ form.ui.form.small.modal(id="addItemModal" method="post" action="/items/add")
           option(value="toDo") To Do
           option(value="note") Note
           option(value="reminder") Reminder
+      .three.wide.field
+        label Owner
+        input(type="text" name="owner" placeholder="#{user}")
 
   .actions
     .ui.negative.deny.button Cancel

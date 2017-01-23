@@ -28,13 +28,17 @@ exports.add = function(req, res){
     var model = new base();
     var data = {};
     model.tableName = "items";
+
     
     console.log(req.body);
-    if(req.body.title=="" || req.body.owner==""){
+    if(req.body.title==""){
         message = "Item title cannot be blank";
         res.redirect('/?error='+message);
     }
     else{
+        if(req.body.owner==""){//if user left "over" field blank, then the item should default to belinging to this user
+            req.body.owner = req.app.locals.user;
+        }
         for(var val in req.body){
             if(val =="owner" || val=="title" || val=="for"|| val=="duedate" || val=="type"){
                 data[val] = req.body[val];
@@ -47,7 +51,6 @@ exports.add = function(req, res){
                     }
                 }
             }
-
             console.log("items data: " );
             console.log(data);
         }
@@ -55,14 +58,18 @@ exports.add = function(req, res){
         model.create(data, function(err, results){
             if(!err){
                 console.log(results);
-                message =  req.body.for==""? "Your item was Successfully added": "Successfully added item for "+req.body.for
+                message =  req.body.owner==""? "Your item was Successfully added": "Successfully added item for "+req.body.owner
                 console.log(message)
                 res.redirect('/?success='+message);
+                //res.status(201);
+                //res.json({message: "Successfully added item for "+req.body.owner})//cannot resend headers after they have already been sent
             }
             else{
                 console.log(err);
                 message = "Internal Server error";
                 res.redirect('/?error='+message);
+                //res.status(500)
+                //res.json({message: message});
             }
         })
     }
@@ -74,8 +81,6 @@ var convertDate = function (inputDate){
     //input: 'November 22, 2016 8:57 AM'
     //required output: 2016-11-22 20:57:00
     var arr = inputDate.split(" ");
-    
-    
     
     arr[1] = arr[1].slice(0,-1);
 
