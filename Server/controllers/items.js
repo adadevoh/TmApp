@@ -7,7 +7,7 @@ exports.itemsList = function(req, res){
     model.readAll({owner:req.app.locals.user}, function(err, results){
         if(!err){
             if(results.length > 0){
-                console.log(results);
+                //console.log(results);
                 res.status(200);
                 res.json(results);
             }
@@ -52,17 +52,17 @@ exports.add = function(req, res){
                 }
             }
             console.log("items data: " );
-            console.log(data);
+            //console.log(data);
         }
         //data.owner = 
         model.create(data, function(err, results){
             if(!err){
-                console.log(results);
+                //console.log(err);
                 message =  req.body.owner==""? "Your item was Successfully added": "Successfully added item for "+req.body.owner
-                console.log(message)
+                //console.log(message)
                 res.redirect('/?success='+message);
                 //res.status(201);
-                //res.json({message: "Successfully added item for "+req.body.owner})//cannot resend headers after they have already been sent
+                //res.json({message: message})//cannot resend headers after they have already been sent
             }
             else{
                 console.log(err);
@@ -73,6 +73,14 @@ exports.add = function(req, res){
             }
         })
     }
+}
+
+exports.edit = function(req, res){
+    console.log("req.params");
+    console.log(req.params);
+    console.log("req.body");
+    console.log(req.body);
+    res.redirect("/");
 }
 
 

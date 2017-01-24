@@ -1,0 +1,73 @@
+.ui.form.small.modal(id="#{item.id}-editItemModal")
+  //-
+  form(method="post" action="/items/edit/#{item.id}" id="#{item.id}-editItemForm")
+    .header Edit Item
+    .content
+      .two.fields
+        .nine.wide.field
+          label Title
+          input(type="text" name="title" placeholder="#{item.title}")
+        .five.wide.field
+          label For
+          input(type="text" name="for" placeholder="#{item.for}")
+      .three.fields
+        .five.wide.field
+          label Due Date
+          .ui.calendar(id="calender")
+          .ui.input.left.icon
+            i.calendar.icon
+            input(type="datetime" name="duedate" placeholder="#{item.duedate}")
+        .three.wide.field
+          label Type
+          select.ui.fluid.floating.dropdown.button(name="type" form="#{item.id}-editItemForm")
+            option(value="#{item.type}") #{item.type}
+            unless item.type == "toDo"
+              option(value="toDo") To Do
+            unless item.type == "note"
+              option(value="note") Note
+            unless item.type == "reminder"
+              option(value="reminder") Reminder
+        .three.wide.field
+          label Owner
+          input(type="text" name="owner" placeholder="#{user}")
+    .actions
+      .ui.negative.deny.button Cancel
+      input.ui.blue.submit.button(type="submit" value="Submit")
+      //-
+        .ui.blue.right.labeled.icon.submit.button(type="submit") Submit
+        i.checkmark.icon
+          
+
+//-
+  .header Edit Item
+  //-
+    .content
+        .two.fields
+        .nine.wide.field 
+            label Title
+            input(type="text" name="title" placeholder="#{item.title}")
+        .five.wide.field
+            label For 
+            input(type="text" name="for" placeholder="#{item.for}")
+        .three.fields
+        .five.wide.field
+            label Due Date
+            .ui.calendar(id="calendar")
+            .ui.input.left.icon
+                i.calendar.icon
+                input(type="datetime" name="duedate" placeholder="#{item.duedate}")
+        .three.wide.field
+            label Type
+            select.ui.fluid.floating.dropdown.button(name="type" )
+            option(value="") Type
+            option(value="toDo") To Do
+            option(value="note") Note
+            option(value="reminder") Reminder
+        .three.wide.field
+            label Owner
+            input(type="text" name="owner" placeholder="#{user}")
+
+    .actions
+        .ui.negative.deny.button Cancel
+        .ui.blue.right.labeled.icon.submit.button submit
+        i.checkmark.icon

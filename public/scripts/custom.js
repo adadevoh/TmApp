@@ -1,4 +1,5 @@
 var fixes = [];
+var items = [];
 $.ajax({
     type: "GET",
     dataType: "json",
@@ -23,10 +24,18 @@ $.ajax({
   dataType: "json",
   url: "http://localhost:3000/items/itemList",
   success: function(data){
-    console.log(data);
+    //console.log(data);
+    for(var i = 0; i< data.length; i++){
+      items.push(data[i].id);
+    }
+    console.log(items);
+    for(var i = 0; i<items.length;i++){
+      $("#"+items[i]+"-editItemModal").modal("attach events", "#"+items[i]+"-editItem", "show");
+
+      //$("#"+items[i]+"-deleteItemModal").modal("attach events", "#"+items[i]+"-deleteItem", "show");
+    }
   },
-  fail: function(jqXHR, textStatus){
-    
+  fail: function(jqXHR, textStatus){    
     console.log(textStatus);
     console.log(jqXHR);
   }

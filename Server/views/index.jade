@@ -63,9 +63,10 @@ block content
                         else
                           |No
                       td
-                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-edit")
+                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
                       td
-                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-delete")
+                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
+                      include ./partials/index/editItemModal
 
               
         .ui.bottom.attached.tab(data-tab="Notes")
@@ -92,9 +93,11 @@ block content
                         else
                           |No
                       td
-                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-edit")
+                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
                       td
-                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-delete")
+                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
+                      //-
+                      include ./partials/index/editItemModal
 
         .ui.bottom.attached.tab(data-tab="Reminders")
           table.ui.table
@@ -120,11 +123,14 @@ block content
                         else
                           |No
                       td
-                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-edit")
+                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
                       td
-                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-delete")
+                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
+                      //-
+                      include ./partials/index/editItemModal
 
 
+      
       .ui.clearing.divider
       button.ui.blue.basic.button#addItem Add Item
 
