@@ -1,139 +1,140 @@
 ﻿extends layout
 
 block content
-  .ui.container#main
-    include ./message
-    .ui.segment
-      //-
-        .ui.top.attached.tabular.menu
-      .ui.secondary.pointing.menu
-        a.item.active(data-tab="Fixes")
-          h2 Fixes
-        a.item(data-tab="Bugs")
-          h2 Bugs
-      .ui.bottom.attached.tab.active(data-tab="Fixes")
-        if fixCount == 0 
-          p No fixes in your queue
-          .ui.clearing.divider
-          button.ui.blue.basic.button#addFix Add Fix
-        else
-          //p #{fixCount} Fixes
-          include ./partials/index/fixList
-        include ./partials/index/addFixModal
-
-        //.ui.clearing.divider
-        //button.ui.primary.basic.button Add Fix
-      .ui.bottom.attached.tab(data-tab="Bugs")
-        p sorry no bugs
+  //-
+    .ui.container#main
+      include ./message
+  .ui.segment
+    //-
+      .ui.top.attached.tabular.menu
+    .ui.secondary.pointing.menu
+      a.item.active(data-tab="Fixes")
+        h2 Fixes
+      a.item(data-tab="Bugs")
+        h2 Bugs
+    .ui.bottom.attached.tab.active(data-tab="Fixes")
+      if fixCount == 0 
+        p No fixes in your queue
         .ui.clearing.divider
-        button.ui.blue.basic.button Add Bug
-    .ui.segment
-      h2 Items
-      if itemCount == 0
-        p Nothing in Items List
+        button.ui.blue.basic.button#addFix Add Fix
       else
-        .ui.secondary.pointing.menu
-          a.item.active(data-tab="ToDos")
-            h3 To Dos
-          a.item(data-tab="Notes")
-            h3 Notes
-          a.item(data-tab="Reminders")
-            h3 Reminders
-        .ui.bottom.attached.tab.active(data-tab="ToDos")
-          table.ui.table
-            thead
-              tr
-                th.four.wide Title
-                th.two.wide For
-                th.three.wide Dude date
-                th.one.wide Complete
-                th.one.wide Edit
-                th.one.wide Delete  
-            tbody
-              each item in items
-                unless item.complete == 1
-                  if item.type == "toDo"
-                    tr
-                      td #{item.title}
-                      td #{item.for}
-                      td #{item.duedate}
-                      td
-                        if item.complete == 1
-                          |Yes
-                        else
-                          |No
-                      td
-                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
-                      td
-                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
-                      include ./partials/index/editItemModal
+        //p #{fixCount} Fixes
+        include ./partials/index/fixList
+      include ./partials/index/addFixModal
 
-              
-        .ui.bottom.attached.tab(data-tab="Notes")
-          table.ui.table
-            thead
-              tr
-                th.four.wide Title
-                th.two.wide For
-                th.three.wide Dude date
-                th.one.wide Complete
-                th.one.wide Edit
-                th.one.wide Delete  
-            tbody
-              each item in items
-                unless item.complete == 1
-                  if item.type == "note"
-                    tr
-                      td #{item.title}
-                      td #{item.for}
-                      td #{item.duedate}
-                      td
-                        if item.complete == 1
-                          |Yes
-                        else
-                          |No
-                      td
-                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
-                      td
-                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
-                      //-
-                      include ./partials/index/editItemModal
-
-        .ui.bottom.attached.tab(data-tab="Reminders")
-          table.ui.table
-            thead
-              tr
-                th.four.wide Title
-                th.two.wide For
-                th.three.wide Dude date
-                th.one.wide Complete
-                th.one.wide Edit
-                th.one.wide Delete  
-            tbody
-              each item in items
-                unless item.complete == 1
-                  if item.type == "reminder"
-                    tr
-                      td #{item.title}
-                      td #{item.for}
-                      td #{item.duedate}
-                      td
-                        if item.complete == 1
-                          |Yes
-                        else
-                          |No
-                      td
-                        input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
-                      td
-                        input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
-                      //-
-                      include ./partials/index/editItemModal
-
-
-      
+      //.ui.clearing.divider
+      //button.ui.primary.basic.button Add Fix
+    .ui.bottom.attached.tab(data-tab="Bugs")
+      p sorry no bugs
       .ui.clearing.divider
-      button.ui.blue.basic.button#addItem Add Item
+      button.ui.blue.basic.button Add Bug
+  .ui.segment
+    h2 Items
+    if itemCount == 0
+      p Nothing in Items List
+    else
+      .ui.secondary.pointing.menu
+        a.item.active(data-tab="ToDos")
+          h3 To Dos
+        a.item(data-tab="Notes")
+          h3 Notes
+        a.item(data-tab="Reminders")
+          h3 Reminders
+      .ui.bottom.attached.tab.active(data-tab="ToDos")
+        table.ui.table
+          thead
+            tr
+              th.four.wide Title
+              th.two.wide For
+              th.three.wide Dude date
+              th.one.wide Complete
+              th.one.wide Edit
+              th.one.wide Delete  
+          tbody
+            each item in items
+              unless item.complete == 1
+                if item.type == "toDo"
+                  tr
+                    td #{item.title}
+                    td #{item.for}
+                    td #{item.duedate}
+                    td
+                      if item.complete == 1
+                        |Yes
+                      else
+                        |No
+                    td
+                      input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
+                    td
+                      input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
+                    include ./partials/index/editItemModal
 
-      //-
-        .ui.small.modal#addItemModal
-      include ./partials/index/addItemModal
+            
+      .ui.bottom.attached.tab(data-tab="Notes")
+        table.ui.table
+          thead
+            tr
+              th.four.wide Title
+              th.two.wide For
+              th.three.wide Dude date
+              th.one.wide Complete
+              th.one.wide Edit
+              th.one.wide Delete  
+          tbody
+            each item in items
+              unless item.complete == 1
+                if item.type == "note"
+                  tr
+                    td #{item.title}
+                    td #{item.for}
+                    td #{item.duedate}
+                    td
+                      if item.complete == 1
+                        |Yes
+                      else
+                        |No
+                    td
+                      input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
+                    td
+                      input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
+                    //-
+                    include ./partials/index/editItemModal
+
+      .ui.bottom.attached.tab(data-tab="Reminders")
+        table.ui.table
+          thead
+            tr
+              th.four.wide Title
+              th.two.wide For
+              th.three.wide Dude date
+              th.one.wide Complete
+              th.one.wide Edit
+              th.one.wide Delete  
+          tbody
+            each item in items
+              unless item.complete == 1
+                if item.type == "reminder"
+                  tr
+                    td #{item.title}
+                    td #{item.for}
+                    td #{item.duedate}
+                    td
+                      if item.complete == 1
+                        |Yes
+                      else
+                        |No
+                    td
+                      input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
+                    td
+                      input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
+                    //-
+                    include ./partials/index/editItemModal
+
+
+    
+    .ui.clearing.divider
+    button.ui.blue.basic.button#addItem Add Item
+
+    //-
+      .ui.small.modal#addItemModal
+    include ./partials/index/addItemModal

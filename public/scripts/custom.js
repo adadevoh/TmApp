@@ -1,12 +1,18 @@
 var fixes = [];
 var items = [];
-$.ajax({
+$.ajax({//get all fixes from server, to be used as needed in the application
     type: "GET",
     dataType: "json",
     url: "http://localhost:3000/fix/fixlist",
     success: function(data){
         console.log("success");
         console.log(data);
+        //now push each fix id into fixes[]. 
+        //the original problem here was that I need the testCompleteModal to be called for each fix in the fixList, but each time it is called it needs to be unique to each fix
+        //so that it sends the right information to the server. in this case that it lets the server know, mark fixxxxx as testComplete. Typically a modal doesnt store view data, 
+        //i.e. when ypu click a button and it shows a modal, the modal doesnt care what button was click, it simply responds to that button/id/element.
+        //so I had to find a way to inject data into it. and thats what I'm doing here. Using the fixID to create a unique element ID, I attach a specific modal show event to each fix
+        //in the list. 
         for(var i = 0; i <data.length; i++){
             fixes.push(data[i].fixNumber)
         }
@@ -19,7 +25,7 @@ $.ajax({
       console.log(jqXHR);
     }
 })
-$.ajax({
+$.ajax({//get all items for server, to be used as needed in the application
   type: "GET",
   dataType: "json",
   url: "http://localhost:3000/items/itemList",
@@ -29,6 +35,7 @@ $.ajax({
       items.push(data[i].id);
     }
     console.log(items);
+
     for(var i = 0; i<items.length;i++){
       $("#"+items[i]+"-editItemModal").modal("attach events", "#"+items[i]+"-editItem", "show");
 
@@ -106,3 +113,9 @@ $('#calendar').calendar();
 //$('.testCompleteModal').modal('attach events','.testComplete','show');
 
 $('.menu .item').tab();
+
+var drop = function(){
+  console.log("drop called");
+  $('#createProjectModal').transition('drop');
+}
+
