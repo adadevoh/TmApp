@@ -13,10 +13,10 @@
       .three.fields
         .five.wide.field
           label Due Date
-          .ui.calendar(id="calender")
-          .ui.input.left.icon
-            i.calendar.icon
-            input(type="datetime" name="duedate" placeholder="#{item.duedate}")
+          .ui.calendar(id="calendar1")
+            .ui.input.left.icon
+              i.calendar.icon
+              input(type="datetime" name="duedate" placeholder="#{item.duedate}" )
         .three.wide.field
           label Type
           select.ui.fluid.floating.dropdown.button(name="type" form="#{item.id}-editItemForm")

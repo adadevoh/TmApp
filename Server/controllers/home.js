@@ -50,8 +50,14 @@ exports.dashboard = function(req, res){
                 }
                 var fixCount;
                 var itemCount;
+                var activeFixes = 0;
+                for(var fix in fixResults){
+                    if(fix.testComplete == 0){
+                        activeFixes++;
+                    }
+                }
 
-                fixResults.length == 0 ? fixCount = 0: fixCount = fixResults.length;
+                activeFixes == 0 ? fixCount = 0: fixCount = activeFixes;
 
                 itemResults.length == 0 ? itemCount = 0: itemCount = itemResults.length;
 

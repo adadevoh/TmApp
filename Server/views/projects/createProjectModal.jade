@@ -1,4 +1,23 @@
 form.ui.form.small.modal(method="post" action="/projects/add" id="createProjectModal")
   .header Create A New Project
+  .content
+    .ui
+      .fields
+        .five.wide.field
+          label Name
+          input(name="projectName" type="text" placeholder="Example: LTSR 7.6 CU3")
+        .five.wide.field
+          label Start Date
+          .ui.input.left.icon
+            i.calendar.icon
+            input(type="date" name="startdate" placeholder="")
 
-  |project create page
+        .five.wide.field
+          label End Date
+          .ui.input.left.icon
+            i.calendar.icon
+            input(type="date" name="enddate" placeholder="")
+        
+  .actions
+    .ui.negative.deny.button Cancel
+    .ui.blue.right.labeled.icon.submit.button Submit

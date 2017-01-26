@@ -57,9 +57,6 @@ app.get('/login', function(req, res){
 })
 
 app.post('/login', function(req, res){
-    //console.log('login-post');
-    //console.log(req.body.user);
-    //console.log('session ID: ', req.session.id);
     console.log();
     //authenticate against db or whatever here
     //check for existing session, if none, then check for post credentials
@@ -100,6 +97,7 @@ app.post('/login', function(req, res){
     });
 });
 //authentication middleware, for every other route that is not /login
+
 app.use(function(req, res, next){
     //if no valid session, redirect to login page
     if(req.session.user == undefined){
@@ -112,8 +110,8 @@ app.use(function(req, res, next){
         app.locals = {
             user: req.session.user,
             messages: {
-                type: "",
-                value: ""
+                //type: "",
+                //value: ""
             }
         }
         console.log('redirect else');

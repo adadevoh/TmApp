@@ -1,9 +1,13 @@
 var fixes = [];
 var items = [];
+//var server = "http://10.15.35.91"
+var server = "http://localhost"
+var port = "3000"
 $.ajax({//get all fixes from server, to be used as needed in the application
     type: "GET",
     dataType: "json",
-    url: "http://localhost:3000/fix/fixlist",
+    url: server+":"+port+"/fix/fixlist",
+    //url: "http://10.15.35.91:3000/fix/fixlist",
     success: function(data){
         console.log("success");
         console.log(data);
@@ -28,7 +32,8 @@ $.ajax({//get all fixes from server, to be used as needed in the application
 $.ajax({//get all items for server, to be used as needed in the application
   type: "GET",
   dataType: "json",
-  url: "http://localhost:3000/items/itemList",
+  url: server+":"+port+"/items/itemList",
+  //url: "http://10.15.35.91:3000/items/itemList",
   success: function(data){
     //console.log(data);
     for(var i = 0; i< data.length; i++){
@@ -109,6 +114,12 @@ $('#addFixModal').modal('attach events','#addFix','show');//when #addfix button 
 $('#addItemModal').modal('attach events','#addItem','show');
 
 $('#calendar').calendar();
+var cal = function(){
+  console.log("cal called");
+  $('#calendar1').calendar();
+}
+
+$('#calendar1').calendar();
 
 //$('.testCompleteModal').modal('attach events','.testComplete','show');
 
@@ -116,6 +127,6 @@ $('.menu .item').tab();
 
 var drop = function(){
   console.log("drop called");
-  $('#createProjectModal').transition('drop');
+  $('#createProjectModal').modal('show');
 }
 
