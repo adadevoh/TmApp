@@ -46,6 +46,8 @@ exports.add = function (req, res) {
         message = "Fix Number field cannot be blank ";
         console.log(res.locals);
         res.redirect('/?error='+message);
+        //res.status(401);
+        //res.json({message: message});
     }
     else{
         for(var key in req.body){
@@ -58,11 +60,15 @@ exports.add = function (req, res) {
             if(!err){
                 message = "Successfully added "+req.body.fixNumber; 
                 res.redirect('/?success='+message)
+                //res.status(201);
+                //res.json({message: message});
             }
             else{
                 console.log(err);
                 message = "Internal Server error";
                 res.redirect('/?error='+message);
+                //res.status(500);
+                //res.json({message: message});
             }
         })
     }

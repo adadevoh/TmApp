@@ -68,7 +68,7 @@ class Base {
         //data = (typeof data == undefined) ? "": data; 
         //console.log("typeof data: ")
         //console.log(typeof data);
-        if(typeof data == 'undefined'){
+        if(typeof data == 'undefined' || data==""){
             //console.log("undefined path called ")
             clause = "";
         }
