@@ -1,0 +1,26 @@
+table.ui.segment.table
+  th
+  tbody
+    each sprint in sprints
+      tr
+        td
+          h4 #{sprint.sprintName}
+        td
+          button.ui.right.floated.small.button Add Fixes
+        td
+          |#{projectname} <!--this is just a test-->
+          //-
+            on clicking the "add Fixes" button the "addSprint" modal will come up, containing a form, 
+            the current sprint and project will be in that modal, and the user will 
+            simply add the fix number, its description, and an owner(blank will default to the user). 
+            Then click a preliminary "add" button that will add it to a javascript object, 
+            and they can add more fixes till they're done. Once done the user will click "submit"
+            and have the payload of fix objects sent to the server
+
+            The modal will have to be a mixin, because I will need to have it taylored to each sprint,
+            and I do not want to use the same javascript roundabout method that I have been using.
+            So at each sprints "add fixes" button the mixin will be called with details for that sprint
+
+
+
+

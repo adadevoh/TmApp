@@ -2,6 +2,24 @@ extends ../layout
 
 block content
   .ui.segment
-    h2 #{projectname}
+    .ui.two.column.grid
+      .column
+        .ui.row.segment
+          h2 #{projectname}
+            button.ui.right.floated.button 
+              i.edit.icon
+              |Edit
+          p some text
+        .ui.row.segment
+          h3 Sprints
+          if sprintCount == 0
+            |No Sprints listed
+          else
+            include ../sprints/sprintList
+
+          .ui.clearing.divider
+          a.ui.blue.basic.button 
+            i.add.circle.icon
+            |Add Sprint
 
 |project view page

@@ -2,6 +2,9 @@ var base = require( '../../api/models/base' );
 var project = new base();
 project.tableName = "projects";
 
+var sprint =  new base();
+sprint.tableName = "sprints";
+
 
 //GET: projects/
 exports.index = function(req, res){
@@ -45,9 +48,20 @@ exports.index = function(req, res){
 }
 //GET: projects/view/:projectID
 exports.view = function(req, res){
-    res.render("projects/view", {
-        message: req.app.locals.messages,
-        projectname: req.params.projectname });
+
+    sprint.readAll({project:req.params.projectname}, function(err, results){
+        if(!err){
+            var sprints = results;
+            res.render("projects/view", {
+                message: req.app.locals.messages,
+                projectname: req.params.projectname,
+                sprintCount: sprints.length,
+                sprints: sprints
+            });
+        }
+
+    });
+    
 }
 
 //POST: projects/add
