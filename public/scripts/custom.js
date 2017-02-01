@@ -114,12 +114,14 @@ $('#addFixModal').modal('attach events','#addFix','show');//when #addfix button 
 $('#addItemModal').modal('attach events','#addItem','show');
 
 $('#calendar').calendar();
-var cal = function(){
+
+
+/*var cal = function(){
   console.log("cal called");
   $('#calendar1').calendar();
-}
+}*/
 
-$('#calendar1').calendar();
+$('#calendar1').calendar('popup');
 
 //$('.testCompleteModal').modal('attach events','.testComplete','show');
 

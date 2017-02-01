@@ -1,0 +1,33 @@
+mixin itemList(items, itemType )
+    table.ui.table
+      thead
+        tr
+          th.four.wide Title
+            th.two.wide For
+            th.three.wide Dude date
+            th.one.wide Complete
+            th.one.wide Edit
+            th.one.wide Delete  
+      tbody
+        each item in items
+          unless item.complete == 1
+            if item.type == itemType
+              tr
+                td #{item.title}
+                td #{item.for}
+                td #{item.duedate}
+                td
+                  if item.complete == 1
+                    |Yes
+                  else
+                    |No
+                td
+                  .ui.input.left.icon
+                    i.blue.basic.edit.icon
+                    input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
+                 
+                td
+                  .ui.input.left.icon
+                    i.red.trash.outline.icon
+                    input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
+                include ./editItemModal

@@ -16,7 +16,9 @@ block content
       if fixCount == 0 
         p No fixes in your queue
         .ui.clearing.divider
-        button.ui.blue.basic.button#addFix Add Fix
+        button.ui.blue.basic.button#addFix 
+          i.add.circle.icon
+          label Add Fix
       else
         //p #{fixCount} Fixes
         include ./partials/index/fixList
@@ -27,7 +29,9 @@ block content
     .ui.bottom.attached.tab(data-tab="Bugs")
       p sorry no bugs
       .ui.clearing.divider
-      button.ui.blue.basic.button Add Bug
+      button.ui.blue.basic.button 
+        i.add.circle.icon
+        label Add Bug
   .ui.segment
     h2 Items
     if itemCount == 0
@@ -40,101 +44,29 @@ block content
           h3 Notes
         a.item(data-tab="Reminders")
           h3 Reminders
+    
+      
+      //-need to have mixin template view included or defined on the page before I can then 
+      //-call it like a function passing my different parameters to it 
+      include ./partials/index/items/itemList  
+      
+      
+      
       .ui.bottom.attached.tab.active(data-tab="ToDos")
-        table.ui.table
-          thead
-            tr
-              th.four.wide Title
-              th.two.wide For
-              th.three.wide Dude date
-              th.one.wide Complete
-              th.one.wide Edit
-              th.one.wide Delete  
-          tbody
-            each item in items
-              unless item.complete == 1
-                if item.type == "toDo"
-                  tr
-                    td #{item.title}
-                    td #{item.for}
-                    td #{item.duedate}
-                    td
-                      if item.complete == 1
-                        |Yes
-                      else
-                        |No
-                    td
-                      input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
-                    td
-                      input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
-                    include ./partials/index/editItemModal
-
-            
+        +itemList(items, 'toDo')
+      
       .ui.bottom.attached.tab(data-tab="Notes")
-        table.ui.table
-          thead
-            tr
-              th.four.wide Title
-              th.two.wide For
-              th.three.wide Dude date
-              th.one.wide Complete
-              th.one.wide Edit
-              th.one.wide Delete  
-          tbody
-            each item in items
-              unless item.complete == 1
-                if item.type == "note"
-                  tr
-                    td #{item.title}
-                    td #{item.for}
-                    td #{item.duedate}
-                    td
-                      if item.complete == 1
-                        |Yes
-                      else
-                        |No
-                    td
-                      input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
-                    td
-                      input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
-                    //-
-                    include ./partials/index/editItemModal
-
+        +itemList(items, 'note')
+      
       .ui.bottom.attached.tab(data-tab="Reminders")
-        table.ui.table
-          thead
-            tr
-              th.four.wide Title
-              th.two.wide For
-              th.three.wide Dude date
-              th.one.wide Complete
-              th.one.wide Edit
-              th.one.wide Delete  
-          tbody
-            each item in items
-              unless item.complete == 1
-                if item.type == "reminder"
-                  tr
-                    td #{item.title}
-                    td #{item.for}
-                    td #{item.duedate}
-                    td
-                      if item.complete == 1
-                        |Yes
-                      else
-                        |No
-                    td
-                      input.ui.blue.basic.button(type="button" value="Edit" id="#{item.id}-editItem")
-                    td
-                      input.ui.red.basic.button(type="button" value="Delete" id="{item.id}-deleteItem")
-                    //-
-                    include ./partials/index/editItemModal
-
+        +itemList(items, 'reminder')
 
     
     .ui.clearing.divider
-    button.ui.blue.basic.button#addItem Add Item
+    button.ui.blue.basic.button#addItem
+      i.add.circle.icon
+      label Add Item
 
     //-
       .ui.small.modal#addItemModal
-    include ./partials/index/addItemModal
+    include ./partials/index/items/addItemModal

@@ -29,6 +29,7 @@ exports.index = function(req, res){
                 });
             }
             else{
+                console.log(results);
                 var projectList = results;
                 res.render("projects/", {
                     projectList: results,
@@ -44,7 +45,9 @@ exports.index = function(req, res){
 }
 //GET: projects/view/:projectID
 exports.view = function(req, res){
-    res.render("projects/view");
+    res.render("projects/view", {
+        message: req.app.locals.messages,
+        projectname: req.params.projectname });
 }
 
 //POST: projects/add
@@ -57,7 +60,7 @@ exports.add = function(req, res){
     
 
 
-    if(req.body.projectName == ""){
+    if(req.body.projectname == ""){
         message = "Project name cannot be blank"
         console.log(message);
         res.redirect("/?error="+message);
@@ -66,28 +69,34 @@ exports.add = function(req, res){
     }
     else{
         for(var key in req.body){
-            if(key == "startdate" || key == "enddate"){
-                if(req.body[key] == ""){
+            if(req.body[key] == ""){
+                if(key == "startdate" || key == "enddate"){
                     data[key] = null;
+                }
+                if(key == "owner"){
+                    data.owner = req.app.locals.user;
+                }
+                if(key == "creator"){
+                    data.creator = req.app.locals.user;
                 }
             }
             else{
                 data[key] = req.body[key];
             }
         }
-        data.creator = req.app.locals.user;//edit later, add invisible field to view vontaining logged in user
-        data.owner = req.app.locals.user;
+        //data.creator = req.app.locals.user;//edit later, add invisible field to view vontaining logged in user
+        //data.owner = req.app.locals.user;
 
         project.create(data, function(err, results){
             if(!err){
-                message = "successfully added project: "+req.body.projectName;
+                message = "successfully added project: "+req.body.projectname;
                 res.redirect('/projects/?success='+message)
                 //res.status(201);
                 //res.json({message:message});
             }
             else{
                 console.log(err);
-                message= "Internal Server error";
+                message= "Oops! something went wrong with that request";
                 res.redirect('/?error='+message);
                 //res.status(500);
                 //res.json({message:message});

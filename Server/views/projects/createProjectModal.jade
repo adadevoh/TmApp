@@ -5,7 +5,7 @@ form.ui.form.small.modal(method="post" action="/projects/add" id="createProjectM
       .fields
         .five.wide.field
           label Name
-          input(name="projectName" type="text" placeholder="Example: LTSR 7.6 CU3")
+          input(name="projectname" type="text" placeholder="Example: LTSR 7.6 CU3")
         .five.wide.field
           label Start Date
           .ui.input.left.icon
@@ -17,7 +17,15 @@ form.ui.form.small.modal(method="post" action="/projects/add" id="createProjectM
           .ui.input.left.icon
             i.calendar.icon
             input(type="date" name="enddate" placeholder="")
+      .fields
+        .five.wide.field
+          label Owner
+          .ui.input.left.icon
+            i.user.icon
+            input(type="text" placeholder="#{user}" name="owner")
+      input(type="hidden" name="creator" value="#{user}")
         
   .actions
     .ui.negative.deny.button Cancel
     .ui.blue.right.labeled.icon.submit.button Submit
+      i.checkmark.icon

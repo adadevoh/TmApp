@@ -2,4 +2,19 @@ extends ../layout
 
 block content
   .ui.segment
-  |project index page
+    table.ui.table
+      thead
+        tr
+          th.six.wide Project
+          th.three.wide Lead
+          th.three.wide Creator
+          th.three.wide Start Date
+      tbody
+        each project in projectList
+          unless project.complete == 1
+            tr
+              td 
+                a(href="/projects/view/#{project.projectname}") #{project.projectname}
+              td #{project.owner}
+              td #{project.creator}
+              td #{project.startdate}

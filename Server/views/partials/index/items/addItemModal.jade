@@ -26,7 +26,9 @@ form.ui.form.small.modal(id="addItemModal" method="post" action="/items/add")
           option(value="reminder") Reminder
       .three.wide.field
         label Owner
-        input(type="text" name="owner" placeholder="#{user}")
+        .ui.input.left.icon
+          i.user.icon
+          input(type="text" name="owner" placeholder="#{user}")
 
   .actions
     .ui.negative.deny.button Cancel
