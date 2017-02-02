@@ -15,7 +15,8 @@ table.ui.table
   tbody
     each fix in fixes
       //-switch between 'if' and'unless == 1/0' while testing. and finally use 'unless' when feature is hardedned.
-      unless fix.testComplete == 1
+      if fix.testComplete == 0
+        //-unless fix.testComplete == 1
         tr
           form(method="post" action="/fix/save" id="#{fix.fixNumber}-saveFix")
             td
@@ -101,4 +102,4 @@ table.ui.table
                 
 
 .ui.clearing.divider
-a.ui.blue.basic.button(id="addFix") Add Fix
+a.ui.blue.basic.button(id="createFix") Add Fix

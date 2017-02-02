@@ -109,12 +109,19 @@ function test_Complete(fixID){
 $('select').dropdown();
 $('.dropdown').dropdown();
 
-$('#addFixModal').modal('attach events','#addFix','show');//when #addfix button is sclicked, #addfixModal is run
+$('#createFixModal').modal('attach events','#createFix','show');//when #addfix button is sclicked, #addfixModal is run
 
 $('#addItemModal').modal('attach events','#addItem','show');
 
+//$('.addFixModal').modal('attach events','.addFix','show');
+
 $('#calendar').calendar();
 
+var add = function(pre){
+  console.log("adding: "+pre);
+  console.log('.'+pre+'-addFixModal');
+  $('.'+pre+'-addFixModal').modal('show');
+}
 
 /*var cal = function(){
   console.log("cal called");

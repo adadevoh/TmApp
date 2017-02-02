@@ -1,0 +1,39 @@
+mixin addFix(sprint, project)
+  form.ui.form.small.modal(method="post" action="/fix/add" class="#{sprint}-addFixModal")
+    .header Add Fix
+    .content
+      .ui
+        .fields
+          .two.wide.field
+            label Fix Number
+            input(type="text" name="fixNumber" placeholder="Fix #")
+          .five.wide.field
+            label Title
+            input#fixTitle(type="text" name="title" placeholder="Title")
+          .three.wide.field
+            if project
+              label Project
+              input(placeholder="#{project}" type="text" readonly="" name="project" value="#{project}")
+            else
+              label Select Project
+              select.ui.fluid.floating.dropdown.button(name="project" id="project-selection")
+                option(value="") Projects
+                option(value="LTSR 7.6 CU1") LTSR 7.6 CU1
+                option(value="LTSR 7.6 CU2") LTSR 7.6 CU2
+                option(value="LTSR 7.6 CU3") LTSR 7.6 CU3
+          .two.wide.field
+            label Sprint 
+            input(placeholder="#{sprint}" type="text" readonly="" name="sprint" value="#{sprint}")
+          .two.wide.field
+            label Owner
+            input(placeholder="#{user}" type="text" name="owner")
+          one.wide.field
+            label Add
+            a.circular.ui.icon.blue.basic.button            
+              i.add.circle.icon
+
+    .actions
+      .ui.negative.deny.button Cancel
+      .ui.blue.right.labeled.icon.submit.button Submit
+        i.checkmark.icon
+    

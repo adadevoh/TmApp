@@ -48,11 +48,14 @@ exports.dashboard = function(req, res){
                     //console.log("itemResults:");
                     //console.log(itemResults);
                 }
+                
                 var fixCount;
                 var itemCount;
                 var activeFixes = 0;
+                //console.log("fixResults!!!!!:");
+                //console.log(fixResults);
                 for(var fix in fixResults){
-                    if(fix.testComplete == 0){
+                    if(fixResults[fix].testComplete == 0){
                         activeFixes++;
                     }
                 }

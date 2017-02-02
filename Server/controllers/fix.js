@@ -35,42 +35,60 @@ exports.fixlist = function(req, res){
 
 //POST: /fix/add
 exports.add = function (req, res) {
-    console.log(req.body);
+    var message = "";
+    //console.log("/fix/add: req.body: ")
+    //console.log(req.body);
+    var noCreate = false;
 
     var model = new base();
     model.tableName = 'fixes';
     var data = {};
 
-    if(req.body.fixNumber == ""|| req.body.title == ""){
-        res.locals = {};
-        message = "Fix Number field cannot be blank ";
-        console.log(res.locals);
-        res.redirect('/?error='+message);
-        //res.status(401);
-        //res.json({message: message});
-    }
-    else{
-        for(var key in req.body){
-            if(key!= "addOneTestLineItem")
+    for(var key in req.body){
+        if(req.body[key] == ""){
+            if(key=="owner"){
+                data[key] = req.app.locals.user;//set data[owner]
+            }
+            if(key=="fixNumber" || key == "title"){
+                message = "Fix Number and Title fields cannot be blank ";
+                res.redirect('/?error='+message);
+                res.end();
+                noCreate = true;//set noCreate==true to ensure that model.create does not run", and end up sending headers a second time
+                break;
+            }
+        }
+        else{//key is not empty, we can add it to data{}
+            if(key!= "addOneTestLineItem"){
                 data[key] = req.body[key];
-        } 
-        console.log("DATA!!!");
-        console.log(data);
+            }   
+        }
+    }
+
+    console.log(data);
+
+    if(!noCreate){
         model.create(data, function(err, results){
-            if(!err){
-                message = "Successfully added "+req.body.fixNumber; 
+            if(!err){                
+                message = "Successfully added "+req.body.fixNumber+" for "+ data.owner; 
+                //console.log("MESSAGE: "+ message);
                 res.redirect('/?success='+message)
                 //res.status(201);
                 //res.json({message: message});
             }
             else{
                 console.log(err);
-                message = "Internal Server error";
+                if(err.code == 'ER_DUP_ENTRY'){
+                    message = "Fix: "+req.body.fixNumber+" has already been added";
+                }
+                else{
+                    message = message==""? "Internal Server error": message;
+                }
+                
                 res.redirect('/?error='+message);
                 //res.status(500);
                 //res.json({message: message});
             }
-        })
+        });
     }
 };
 
@@ -132,25 +150,4 @@ exports.save = function ( req, res ) {
             }
         });
     }
-    //model.update()
-
-    /*var j  = 1;
-    var objs = [];
-    var singleFixObject = {};
-    //if(req.body.)
-    for (var key in req.body){
-        console.log(key +" : "+req.body[key])
-        console.log('key slice: ' + key.slice(7))
-        singleFixObject[key.slice(7)] = req.body[key]
-        if(j%5 == 0){
-            console.log();
-            singleFixObject['fixNumber'] = key.slice(0,6);
-            objs.push(singleFixObject);
-            j = 1;
-            singleFixObject = {};
-            continue;
-        }
-            
-        j++;
-    }*/
 };

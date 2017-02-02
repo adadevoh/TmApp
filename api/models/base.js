@@ -42,7 +42,7 @@ class Base {
     create(data, callback){
         //console.log('start of base::create()');
         var query = connection.query("INSERT INTO "+ this.tableName +" SET ?", data, callback);
-        //console.log('create query, query: ' + query.sql);
+        console.log('create query, query: ' + query.sql);
     }
 
     /*

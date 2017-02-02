@@ -1,12 +1,17 @@
+
 table.ui.segment.table
   th
   tbody
     each sprint in sprints
+      include ../fixes/addFix
       tr
         td
           h4 #{sprint.sprintName}
         td
-          button.ui.right.floated.small.button Add Fixes
+          button.ui.right.floated.small.button(onclick = "add('#{sprint.sprintName}')")
+            i.add.circle.icon
+            |Add Fix
+            +addFix(sprint.sprintName, projectname)
         td
           |#{projectname} <!--this is just a test-->
           //-
@@ -20,6 +25,9 @@ table.ui.segment.table
             The modal will have to be a mixin, because I will need to have it taylored to each sprint,
             and I do not want to use the same javascript roundabout method that I have been using.
             So at each sprints "add fixes" button the mixin will be called with details for that sprint
+            
+            
+            .sprint2-addFixModal
 
 
 
