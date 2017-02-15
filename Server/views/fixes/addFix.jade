@@ -1,6 +1,10 @@
 mixin addFix(sprint, project)
   form.ui.form.small.modal(method="post" action="/fix/add" class="#{sprint}-addFixModal")
-    .header Add Fix
+    .header 
+      
+      a.circular.ui.icon.blue.basic.button            
+        i.add.circle.icon
+      label Add Fix
     .content
       .ui
         .fields
@@ -18,16 +22,24 @@ mixin addFix(sprint, project)
               label Select Project
               select.ui.fluid.floating.dropdown.button(name="project" id="project-selection")
                 option(value="") Projects
-                option(value="LTSR 7.6 CU1") LTSR 7.6 CU1
-                option(value="LTSR 7.6 CU2") LTSR 7.6 CU2
-                option(value="LTSR 7.6 CU3") LTSR 7.6 CU3
-          .two.wide.field
-            label Sprint 
-            input(placeholder="#{sprint}" type="text" readonly="" name="sprint" value="#{sprint}")
+                option(value="LTSR 7.6 CU1") LTSR 7.6 CU2
+                option(value="LTSR 7.6 CU2") LTSR 7.6 CU3
+                option(value="LTSR 7.6 CU3") LTSR 7.6 CU4
+          .three.wide.field
+            if sprint
+              label Sprint 
+              input(placeholder="#{sprint}" type="text" readonly="" name="sprint" value="#{sprint}")
+            else
+              label Select Sprint
+              select.ui.fluid.floating.dropdown.button(name="sprint" id="sprint-selection")
+                option(value="") Sprint
+                option(value="Sprint1") Sprint1
+                option(value="Sprint2") Sprint2
+                option(value="Sprint3") Sprint3
           .two.wide.field
             label Owner
             input(placeholder="#{user}" type="text" name="owner")
-          one.wide.field
+          //-one.wide.field
             label Add
             a.circular.ui.icon.blue.basic.button            
               i.add.circle.icon

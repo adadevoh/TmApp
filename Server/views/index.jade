@@ -16,13 +16,15 @@ block content
       if fixCount == 0 
         p No fixes in your queue
         .ui.clearing.divider
-        button.ui.blue.basic.button#createFix 
+        button.ui.blue.basic.button(onclick = "addFix('')")
           i.add.circle.icon
           |Add Fix
+          +addFix()
       else
         //p #{fixCount} Fixes
         include ./partials/index/fixList
-      include ./partials/index/createFixModal
+      //-include ./partials/index/createFixModal
+      include ./fixes/addFix
 
       //.ui.clearing.divider
       //button.ui.primary.basic.button Add Fix

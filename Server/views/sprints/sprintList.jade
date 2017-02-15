@@ -8,7 +8,7 @@ table.ui.segment.table
         td
           h4 #{sprint.sprintName}
         td
-          button.ui.right.floated.small.button(onclick = "add('#{sprint.sprintName}')")
+          button.ui.right.floated.small.button(onclick = "addFix('#{sprint.sprintName}')")
             i.add.circle.icon
             |Add Fix
             +addFix(sprint.sprintName, projectname)

@@ -1,7 +1,7 @@
 var fixes = [];
 var items = [];
-//var server = "http://10.15.35.91"
-var server = "http://localhost"
+var server = "http://10.15.35.91"
+//var server = "http://localhost"
 var port = "3000"
 $.ajax({//get all fixes from server, to be used as needed in the application
     type: "GET",
@@ -117,7 +117,7 @@ $('#addItemModal').modal('attach events','#addItem','show');
 
 $('#calendar').calendar();
 
-var add = function(pre){
+var addFix = function(pre){
   console.log("adding: "+pre);
   console.log('.'+pre+'-addFixModal');
   $('.'+pre+'-addFixModal').modal('show');
