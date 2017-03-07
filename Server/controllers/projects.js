@@ -4,6 +4,8 @@ project.tableName = "projects";
 
 var sprint =  new base();
 sprint.tableName = "sprints";
+var user = new base();
+user.tableName = "users";
 
 
 //GET: projects/
@@ -36,7 +38,8 @@ exports.index = function(req, res){
                 var projectList = results;
                 res.render("projects/", {
                     projectList: results,
-                    message: req.app.locals.messages
+                    message: req.app.locals.messages,
+                    user: req.app.locals.user.userid
                 });
             }
         }
@@ -48,6 +51,12 @@ exports.index = function(req, res){
 }
 //GET: projects/view/:projectID
 exports.view = function(req, res){
+    user.update([{project:req.params.projectname}, {userid:req.app.locals.user.userid}], function(err, results){
+        if(err){
+            console.log('user project update error');
+            console.log(err);
+        }
+    });
 
     sprint.readAll({project:req.params.projectname}, function(err, results){
         if(!err){
@@ -56,7 +65,9 @@ exports.view = function(req, res){
                 message: req.app.locals.messages,
                 projectname: req.params.projectname,
                 sprintCount: sprints.length,
-                sprints: sprints
+                sprints: sprints,
+                user: req.app.locals.user.userid,
+                currentProject:req.params.projectname
             });
         }
 
@@ -88,10 +99,10 @@ exports.add = function(req, res){
                     data[key] = null;
                 }
                 if(key == "owner"){
-                    data.owner = req.app.locals.user;
+                    data.owner = req.app.locals.user.userid;
                 }
                 if(key == "creator"){
-                    data.creator = req.app.locals.user;
+                    data.creator = req.app.locals.user.userid;
                 }
             }
             else{

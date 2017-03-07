@@ -1,6 +1,7 @@
 ﻿extends layout
 
 block content
+  //-<i class="circular heart icon link" data-content="Hello. This is an inverted popup" data-variation="inverted"></i>
   //-
     .ui.container#main
       include ./message
@@ -9,32 +10,44 @@ block content
       .ui.top.attached.tabular.menu
     .ui.secondary.pointing.menu
       a.item.active(data-tab="Fixes")
-        h2 Fixes
-      a.item(data-tab="Bugs")
-        h2 Bugs
+        h2 My Fixes
+      a.item(data-tab="UnassignedFixes")
+        h2 Unassigned Fixes
+      a.item(data-tab="AllFixes")
+        h2 All Fixes
     .ui.bottom.attached.tab.active(data-tab="Fixes")
-      if fixCount == 0 
+      if myFixCount == 0 
         p No fixes in your queue
         .ui.clearing.divider
-        button.ui.blue.basic.button(onclick = "addFix('')")
+        //-button.ui.blue.basic.button(onclick = "addFix('')")
           i.add.circle.icon
           |Add Fix
           +addFix()
       else
         //p #{fixCount} Fixes
         include ./partials/index/fixList
-      //-include ./partials/index/createFixModal
+      
       include ./fixes/addFix
 
       //.ui.clearing.divider
       //button.ui.primary.basic.button Add Fix
-    .ui.bottom.attached.tab(data-tab="Bugs")
+    .ui.bottom.attached.tab(data-tab="UnassignedFixes")
       p sorry no bugs
       .ui.clearing.divider
-      button.ui.blue.basic.button 
+      //-button.ui.blue.basic.button 
         i.add.circle.icon
         label Add Bug
-  .ui.segment
+    .ui.bottom.attached.tab(data-tab="AllFixes")
+      include ./fixes/allFixes
+      .ui.clearing.divider
+    button.ui.blue.basic.button(onclick = "addFix('')")
+      i.add.circle.icon
+      |Add Fix
+      +addFix('','')
+    //-button.ui.blue.right.submit.button Update
+  
+  //-Hiding items view and logic, for now. This view will be moved to individual fixes instead
+  //-.ui.segment
     h2 Items
     if itemCount == 0
       p Nothing in Items List

@@ -32,7 +32,13 @@ a {
 #project-list{
   min-width: 260px;
 }
-
+.largetext {
+  display: block;
+  width: 15em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .nav_bar{
 	height: inherit;
 	/*margin-left: 50px;*/

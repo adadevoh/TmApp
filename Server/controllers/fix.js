@@ -9,7 +9,7 @@ exports.fixlist = function(req, res){
     model.tableName = 'fixes';
 
     //read all fixes for the current session user
-    model.readAll({owner:req.app.locals.user}, function(err, results){
+    model.readAll({owner:req.app.locals.user.userid}, function(err, results){
         if(!err){
             //console.log('fixList results')
             //console.log(results)
@@ -21,7 +21,7 @@ exports.fixlist = function(req, res){
             else{
                 console.log("no fixes");
                 res.status(204);
-                res.json({message:"No fixes for "+req.app.locals.user});
+                res.json({message:"No fixes for "+req.app.locals.user.userid});
             }
         }
         else{
@@ -46,10 +46,10 @@ exports.add = function (req, res) {
 
     for(var key in req.body){
         if(req.body[key] == ""){
-            if(key=="owner"){
-                data[key] = req.app.locals.user;//set data[owner]
-            }
-            if(key=="fixNumber" || key == "title"){
+            /*if(key=="owner"){
+                data[key] = req.app.locals.user;//allow owner to be empty
+            }*/
+            if(key=="fixNumber" /*|| key == "title"*/){//allow title to be empty
                 message = "Fix Number and Title fields cannot be blank ";
                 res.redirect('/?error='+message);
                 res.end();

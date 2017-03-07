@@ -68,7 +68,7 @@ app.post('/login', function(req, res){
         if(!err){//user exists, now check if there is only 1 result 
             if(results.length == 1){//if only one result, check if req.body.password == user password
                 if(results[0].password == req.body.password){//if req.body.password = user password, then set session.user and redirect to home
-                    req.session.user = results[0].userid;
+                    req.session.user = results[0];
                     res.redirect('/');
                 }
                 else {//password is wrong/render login page with error messages
@@ -112,11 +112,27 @@ app.use(function(req, res, next){
             messages: {
                 //type: "",
                 //value: ""
-            }
+            },
+            //currentProject: req.session.user.project
         }
         console.log('redirect else');
         next();
     }
+});
+
+app.use(function(req, res, next){
+    var user = new Base();
+    user.tableName = "users";
+    user.readKey({userid:req.session.user.userid}, function(err, results){
+        if(!err){
+            app.locals.currentProject = results[0].project;
+            next();
+        }
+        else{
+            console.log("app.use, user project error:");
+            console.log(err);
+        }
+    });
 });
 
 

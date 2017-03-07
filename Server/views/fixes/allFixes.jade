@@ -1,0 +1,90 @@
+
+//-- var rowClass ="" 
+table.ui.celled.blue.table
+  thead
+    tr
+      th.one.wide Number
+      th.three.wide Title
+      th.one.wide Line Item Verification
+      th.one.wide Regression
+      //-
+        th.two.wide Stress
+      th.one.wide WHQL
+      th.one.wide ReadMe
+      th.one.wide Owner
+      //-th.one.wide
+      //-th.two.wide Test Status
+  tbody
+    each fix in allFixes
+      if fix.status == "new"
+        - var rowClass = "warning"
+      if fix.status == "complete"
+        - var rowClass = "success"    
+      tr(class = rowClass)
+        form(method="post" action="/fix/save" id="#{fix.fixNumber}-saveFixAllFixes-")
+          td
+            a(href="http://onefix.eng.citrite.net/fix/#{fix.fixNumber}") #{fix.fixNumber}
+          td.info(data-content="#{fix.title}")
+            |#{fix.title}
+          td
+            |#{fix.liv}
+            //-select.ui.fluid.dropdown(name="LIV" form="#{fix.fixNumber}-saveFixAllFixes-") 
+              option(value="#{fix.liv}") #{fix.liv}
+              unless fix.liv == "Not Started" 
+                option(value="Not Started") Not Started
+              unless fix.liv == "In Progress"
+                option(value="In Progress") In Progress
+              unless fix.liv == "Blocked"
+                option(value="Blocked") Blocked
+              unless fix.liv == "Complete"
+                option(value="Complete") Complete
+          td
+            |#{fix.regression}
+            //-select.ui.fluid.dropdown(name="Regression" form="#{fix.fixNumber}-saveFixAllFixes-") 
+              option(value="#{fix.regression}") #{fix.regression}
+              unless fix.regression == "Not Started" 
+                option(value="Not Started") Not Started
+              unless fix.regression == "In Progress"
+                option(value="In Progress") In Progress
+              unless fix.regression == "Blocked"
+                option(value="Blocked") Blocked
+              unless fix.regression == "Complete"
+                option(value="Complete") Complete
+          td
+            |#{fix.whql}
+            //-select.ui.fluid.dropdown(name="WHQL" form="#{fix.fixNumber}-saveFixAllFixes-")
+              option(value="#{fix.whql}") #{fix.whql}
+              unless fix.whql =="Not Started"
+                option(value="Not Started") Not Started
+              unless fix.whql == "N/A"
+                option(value="N/A") N/A
+              unless fix.whql == "Requested"
+                option(value="Requested") Requested
+              unless fix.whql == "Blocked"
+                option(value="Blocked") Blocked
+              unless fix.whql == "Signed"
+                option(value="Signed") Signed
+          td
+            |#{fix.readMe}
+            //-select.ui.fluid.dropdown(name="ReadMe" form="#{fix.fixNumber}-saveFixAllFixes-")
+              option(value="#{fix.readMe}") #{fix.readMe}
+              unless fix.readMe =="Not Started"
+                option(value="Not Started") Not Started
+              unless fix.readMe == "N/A"
+                option(value="N/A") N/A
+              //-unless fix.readMe == "InProgress"
+                option(value="InProgress") In Progress
+              unless fix.readMe == "Blocked"
+                option(value="Blocked") Blocked
+              unless fix.readMe == "Complete"
+                option(value="Complete") Complete
+          if fix.owner =="" || !fix.owner
+            td.error
+              |#{fix.owner}
+          else
+            td
+              |#{fix.owner}
+            
+          //-td
+            input(type="hidden" name="fixNumber" value="#{fix.fixNumber}")
+            input.ui.primary.basic.button(type="submit" value="save") 

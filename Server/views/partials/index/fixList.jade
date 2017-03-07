@@ -8,99 +8,111 @@ table.ui.table
       th.two.wide Regression
       //-
         th.two.wide Stress
-      th.one.wide WHQL
-      th.one.wide ReadMe
+      th.two.wide WHQL
+      th.two.wide ReadMe
       th.one.wide
       th.one.wide
   tbody
-    each fix in fixes
+    each fix in myFixes
       //-switch between 'if' and'unless == 1/0' while testing. and finally use 'unless' when feature is hardedned.
-      if fix.testComplete == 0
-        //-unless fix.testComplete == 1
-        tr
-          form(method="post" action="/fix/save" id="#{fix.fixNumber}-saveFix")
-            td
-              a(href="#") #{fix.fixNumber}
-            
-            td #{fix.title}
-            
-            td
-              select.ui.fluid.dropdown(name="LIV" form="#{fix.fixNumber}-saveFix") 
-                option(value="#{fix.liv}") #{fix.liv}
-                unless fix.liv == "Not Started" 
-                  option(value="Not Started") Not Started
-                unless fix.liv == "In Progress"
-                  option(value="In Progress") In Progress
-                unless fix.liv == "Blocked"
-                  option(value="Blocked") Blocked
-                unless fix.liv == "Complete"
-                  option(value="Complete") Complete
-            
-            td
-              select.ui.fluid.dropdown(name="Regression" form="#{fix.fixNumber}-saveFix")
-                option(value="#{fix.regression}") #{fix.regression}
-                unless fix.regression == "Not Started"
-                  option(value="Not Started") Not Started
-                unless fix.regression == "In Progress"
-                  option(value="In Progress") In Progress
-                unless fix.regression == "Blocked"
-                  option(value="Blocked") Blocked
-                unless fix.regression == "Complete"
-                  option(value="Complete") Complete
-            
-            td.ui.form
-              .inline.fields
-                .field
-                  .ui.radio.checkbox
-                    if fix.whql == 1
-                      input(type="radio" name="WHQL" checked="checked" value=1)
-                    else
-                      input(type="radio" name="WHQL" value=1)
-                    label Yes
-                .field
-                  .ui.radio.checkbox
-                    if fix.whql == 0
-                      input(type="radio" name="WHQL" checked="checked"  value=0)
-                    else
-                      input(type="radio" name="WHQL" value=0)
-                    label No
-
-            td.ui.form
-              .inline.fields
-                .field
-                  .ui.radio.checkbox
-                    if fix.readMe == 1
-                      input(type="radio" name="ReadMe" checked="checked" value=1)
-                    else
-                      input(type="radio" name="ReadMe" value=1)
-                    label Yes
-                .field
-                  .ui.radio.checkbox
-                    if fix.readMe == 0
-                      input(type="radio" name="ReadMe" checked="checked"  value=0)
-                    else
-                      input(type="radio" name="ReadMe" value=0)
-                    label No
-            td
-              input(type="hidden" name="fixNumber" value="#{fix.fixNumber}")
-              input.ui.primary.basic.button(type="submit" value="save")  
-          
-          td            
-            if fix.testComplete == 1
-              input.ui.green.button(type="button" value="Test Complete")
-            else
-              input.ui.green.basic.button(type="button" value="Test Complete" id="#{fix.fixNumber}testComplete")
+      if fix.owner = user
+        if fix.testComplete == 0
+          //-unless fix.testComplete == 1
+          tr
+            form(method="post" action="/fix/save" id="#{fix.fixNumber}-saveFix")
+              td
+                a(href="http://onefix.eng.citrite.net/fix/#{fix.fixNumber}") #{fix.fixNumber}
               
-              //-
-                input.ui.green.basic.button(type="button" value="Test Complete" onclick="test_Complete('#{fix.fixNumber}')" id="#{fix.fixNumber}-testComplete")
+              td.largetext(data-content="#{fix.title}" data-position="top right") #{fix.title}
+              
+              td
+                select.ui.fluid.dropdown(name="LIV" form="#{fix.fixNumber}-saveFix") 
+                  option(value="#{fix.liv}") #{fix.liv}
+                  unless fix.liv == "Not Started" 
+                    option(value="Not Started") Not Started
+                  unless fix.liv == "In Progress"
+                    option(value="In Progress") In Progress
+                  unless fix.liv == "Blocked"
+                    option(value="Blocked") Blocked
+                  unless fix.liv == "Complete"
+                    option(value="Complete") Complete
+              
+              td
+                select.ui.fluid.dropdown(name="Regression" form="#{fix.fixNumber}-saveFix")
+                  option(value="#{fix.regression}") #{fix.regression}
+                  unless fix.regression == "Not Started"
+                    option(value="Not Started") Not Started
+                  unless fix.regression == "In Progress"
+                    option(value="In Progress") In Progress
+                  unless fix.regression == "Blocked"
+                    option(value="Blocked") Blocked
+                  unless fix.regression == "Complete"
+                    option(value="Complete") Complete
+              
+              td
+                select.ui.fluid.dropdown(name="WHQL" form="#{fix.fixNumber}-saveFix")
+                  option(value="#{fix.whql}") #{fix.whql}
+                  unless fix.whql =="Not Started"
+                    option(value="Not Started") Not Started
+                  unless fix.whql == "N/A"
+                    option(value="N/A") N/A
+                  unless fix.whql == "Requested"
+                    option(value="Requested") Requested
+                  unless fix.whql == "Blocked"
+                    option(value="Blocked") Blocked
+                  unless fix.whql == "Signed"
+                    option(value="Signed") Signed
+              
+              td
+                select.ui.fluid.dropdown(name="ReadMe" form="#{fix.fixNumber}-saveFix")
+                  option(value="#{fix.readMe}") #{fix.readMe}
+                  unless fix.readMe =="Not Started"
+                    option(value="Not Started") Not Started
+                  unless fix.readMe == "N/A"
+                    option(value="N/A") N/A
+                  //-unless fix.readMe == "InProgress"
+                    option(value="InProgress") In Progress
+                  unless fix.readMe == "Blocked"
+                    option(value="Blocked") Blocked
+                  unless fix.readMe == "Complete"
+                    option(value="Complete") Complete
+              //-td.ui.form
+                .inline.fields
+                  .field
+                    .ui.radio.checkbox
+                      if fix.readMe == 1
+                        input(type="radio" name="ReadMe" checked="checked" value=1)
+                      else
+                        input(type="radio" name="ReadMe" value=1)
+                      label Yes
+                  .field
+                    .ui.radio.checkbox
+                      if fix.readMe == 0
+                        input(type="radio" name="ReadMe" checked="checked"  value=0)
+                      else
+                        input(type="radio" name="ReadMe" value=0)
+                      label No
+              td
+                input(type="hidden" name="fixNumber" value="#{fix.fixNumber}")
+                input.ui.primary.basic.button(type="submit" value="save")  
+            
+            td            
+              if fix.testComplete == 1
+                input.ui.green.button(type="button" value="Complete")
+              else
+                input.ui.green.basic.button(type="button" value="Complete" id="#{fix.fixNumber}testComplete")
+                
+                //-
+                  input.ui.green.basic.button(type="button" value="Test Complete" onclick="test_Complete('#{fix.fixNumber}')" id="#{fix.fixNumber}-testComplete")
 
-              include ./testCompleteModal
-            //-
-              button.ui.green.basic.button#testComplete Test Complete
-            //-
-              input.ui.green.basic.button(type="submit" value="Test Complete")
+                include ./testCompleteModal
+              //-
+                button.ui.green.basic.button#testComplete Test Complete
+              //-
+                input.ui.green.basic.button(type="submit" value="Test Complete")
                 
 
 .ui.clearing.divider
-a.ui.blue.basic.button(onclick = "addFix('')") Add Fix
-+addFix('','')
+button.ui.blue.right.floated.submit.button Update <!--when this button is clicked a js fucntion will be called to send all the added fixes to the server-->
+//-a.ui.blue.basic.button(onclick = "addFix('')") Add Fix
+//-+addFix('','')

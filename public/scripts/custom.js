@@ -139,3 +139,10 @@ var drop = function(){
   $('#createProjectModal').modal('show');
 }
 
+$('.circular.heart.icon.link')
+  .popup()
+;
+
+$('.largetext')
+  .popup()
+;

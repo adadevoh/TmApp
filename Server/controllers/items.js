@@ -4,7 +4,7 @@ var base = require( '../../api/models/base' );
 exports.itemsList = function(req, res){
     var model = new base();
     model.tableName = "items";
-    model.readAll({owner:req.app.locals.user}, function(err, results){
+    model.readAll({owner:req.app.locals.user.userid}, function(err, results){
         if(!err){
             if(results.length > 0){
                 //console.log(results);
@@ -37,7 +37,7 @@ exports.add = function(req, res){
     }
     else{
         if(req.body.owner==""){//if user left "over" field blank, then the item should default to belinging to this user
-            req.body.owner = req.app.locals.user;
+            req.body.owner = req.app.locals.user.userid;
         }
         for(var val in req.body){
             if(val =="owner" || val=="title" || val=="for"|| val=="duedate" || val=="type"){

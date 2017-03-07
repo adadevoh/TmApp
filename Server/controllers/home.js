@@ -26,7 +26,7 @@ exports.dashboard = function(req, res){
     var itemResults = null;
     var itemsPath = "api/itemList/";
 
-    fixes.readAll({owner: req.app.locals.user}, function(fixErr, fixResults){
+    fixes.readAll("", function(fixErr, fixResults){
         //then do bugs.readAll, and then send results
         //so the if/else logic for fixes.readAll will be nested inside bugs.readAll
         if(fixErr){
@@ -35,7 +35,7 @@ exports.dashboard = function(req, res){
         }
         else{
             request({
-            url: apiOptions.server+itemsPath+req.app.locals.user,
+            url: apiOptions.server+itemsPath+req.app.locals.user.userid,
             method: "GET",
             json:{}
             }, function(err, response, body){
@@ -52,13 +52,29 @@ exports.dashboard = function(req, res){
                 var fixCount;
                 var itemCount;
                 var activeFixes = 0;
+                var myFixes = [];
+                var unassigned = [];
+                
                 //console.log("fixResults!!!!!:");
                 //console.log(fixResults);
                 for(var fix in fixResults){
+                    console.log(fix.owner);
                     if(fixResults[fix].testComplete == 0){
                         activeFixes++;
                     }
+                    if(fixResults[fix].owner == req.app.locals.user.userid)
+                    {//{owner: req.app.locals.user}
+                        myFixes.push(fixResults[fix]);
+                    }
+                    if(fix.owner =="")
+                    {
+                        unassigned.push(fixResults[fix]);
+                    }
                 }
+                console.log("fixResults");
+                console.log(fixResults);
+                console.log("myFixes");
+                console.log(myFixes);
 
                 activeFixes == 0 ? fixCount = 0: fixCount = activeFixes;
 
@@ -67,11 +83,13 @@ exports.dashboard = function(req, res){
                 console.log("itemCount: "+itemCount);
                 res.render('index', {
                     title: 'TmApp Dashboard',
-                    fixCount: fixCount,
-                    fixes: fixResults,
+                    myFixCount: myFixes.length,
+                    allFixes: fixResults,
+                    myFixes: myFixes,
+                    unassigned: unassigned,
                     items: itemResults,
                     itemCount: itemCount,
-                    user: req.app.locals.user,
+                    user: req.app.locals.user.userid,
                     message: req.app.locals.messages
                 });
             });
